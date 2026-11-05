@@ -3,6 +3,7 @@ import ContactValue from '~/components/ContactValue.astro';
 import MaybeLink from '~/components/MaybeLink.astro';
 import { useTranslations } from '~/i18n';
 import type { Studio } from '~/lib/content';
+import { url } from '~/lib/url';
 
 interface Props {
   studio: Studio;
@@ -31,7 +32,7 @@ const publisher = studio.publishers.find((p) => p.role.toLowerCase().includes('c
         </div>
         <div>
           <dt class="label">{t('footer.pressKit')}</dt>
-          <dd><a href="/press/">{t('press.title')}</a></dd>
+          <dd><a href={url('press/')}>{t('press.title')}</a></dd>
         </div>
         {
           publisher && (

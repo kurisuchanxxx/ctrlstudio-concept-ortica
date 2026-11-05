@@ -4,6 +4,7 @@ import ContactValue from '~/components/ContactValue.astro';
 import MaybeLink from '~/components/MaybeLink.astro';
 import { useTranslations } from '~/i18n';
 import { buildNow, getStudio } from '~/lib/content';
+import { url } from '~/lib/url';
 
 const t = useTranslations(Astro.currentLocale);
 const studio = await getStudio();
@@ -14,7 +15,7 @@ const consolePublisher = studio.publishers.find((p) => p.role.toLowerCase().incl
   <div class="container">
     <div class="grid">
       <div class="brand">
-        <a class="wordmark" href="/">{studio.name}</a>
+        <a class="wordmark" href={url()}>{studio.name}</a>
         <p class="muted">{studio.location.city}, {studio.location.country}</p>
       </div>
 
@@ -41,7 +42,7 @@ const consolePublisher = studio.publishers.find((p) => p.role.toLowerCase().incl
           <p><ContactValue email={studio.contacts.business} /></p>
         </div>
         <div>
-          <a class="press-link" href="/press/">{t('footer.pressKit')}</a>
+          <a class="press-link" href={url('press/')}>{t('footer.pressKit')}</a>
         </div>
       </div>
 

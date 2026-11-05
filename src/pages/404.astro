@@ -1,6 +1,7 @@
 ---
 import Base from '~/layouts/Base.astro';
 import { useTranslations } from '~/i18n';
+import { url } from '~/lib/url';
 
 const t = useTranslations(Astro.currentLocale);
 ---
@@ -10,7 +11,7 @@ const t = useTranslations(Astro.currentLocale);
     <p class="label">404</p>
     <h1 class="title">{t('notFound.title')}</h1>
     <p class="text">{t('notFound.text')}</p>
-    <p><a class="btn btn--ghost" href="/">{t('notFound.back')}</a></p>
+    <p><a class="btn btn--ghost" href={url()}>{t('notFound.back')}</a></p>
   </div>
 </Base>
 

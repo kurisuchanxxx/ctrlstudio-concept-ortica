@@ -8,7 +8,7 @@ Concept navigabile con cui Ctrl Studio propone a Studio Ortica (studio horror in
 
 ## Stack e comandi
 
-- Astro 7 (versione esatta in package.json), output statico, deploy su Cloudflare Pages.
+- Astro 7 (versione esatta in package.json), output statico. Produzione su Cloudflare Pages, preview del concept su GitHub Pages.
 - Unica dipendenza: `astro` (sharp arriva con Astro). Non aggiungerne altre senza chiederlo.
 - Node >= 22.23.4 (`.nvmrc`).
 
@@ -31,11 +31,14 @@ src/content/studio/studio.yaml  dati studio: home, footer, press kit
 src/assets/games/<slug>/    asset per gioco, nomi fissi (ASSETS.md)
 src/assets/studio/          logo e foto team
 src/lib/content/            livello dati: tipi, regole derivate, accesso
+src/lib/url.ts              url() per i link interni, rispetta BASE_PATH
 src/i18n/ui.ts              tutte le stringhe di interfaccia
 src/styles/tokens.css       colori, font, spazi, motion: unico file di token
 src/components/  src/layouts/  src/pages/  src/scripts/
 scripts/                    verify-dist, todos, assets
-public/fonts/               woff2 self-hosted + licenze OFL
+src/assets/fonts/           woff2 self-hosted (hash e base path gestiti da Vite)
+public/fonts/               licenze OFL dei font
+.github/workflows/pages.yml build + deploy della preview su GitHub Pages
 ```
 
 ## Modalità concept
@@ -43,8 +46,9 @@ public/fonts/               woff2 self-hosted + licenze OFL
 - Interruttore: `CONCEPT_MODE` in `src/config/concept.mjs`, acceso di default.
 - Controlla, e solo quello: banner sticky non chiudibile su ogni pagina, `<meta name="robots" content="noindex, nofollow">`, `robots.txt` con `Disallow: /`, `X-Robots-Tag: noindex` nel `_headers` generato, nota concept nel footer.
 - Per spegnerlo dopo il sì: un commit dedicato che cambia solo quella riga in `false`. Il build verifica allora che banner, noindex e Disallow siano spariti.
-- Preview solo su un progetto Pages dal nome dichiaratamente di Ctrl Studio (`ctrlstudio-ortica-concept`), mai un nome che sembri il loro.
-- Non pubblicare, deployare o creare progetti Cloudflare senza chiedere prima a Ctrl Studio.
+- La preview gira su GitHub Pages (scelta di Ctrl Studio al posto di pages.dev). L'indirizzo è `https://<owner>.github.io/<repo>/`: il nome del repo deve dichiarare che è un concept di Ctrl Studio (es. `ctrlstudio-ortica-concept`), mai un nome che sembri il loro.
+- Su GitHub Pages `robots.txt` sta sotto `/<repo>/` e i crawler lo ignorano, e `_headers` non viene applicato: lì protegge solo il meta noindex, presente su ogni pagina.
+- Non pubblicare, deployare o creare progetti di hosting senza chiedere prima a Ctrl Studio.
 
 ## Regole garantite dal build (`scripts/verify-dist.mjs`)
 
@@ -54,8 +58,8 @@ Sempre:
 - nessun commento HTML nell'output;
 - nessuna risorsa YouTube referenziata da HTML o CSS (iframe, img, link preconnect...): sono ammessi solo i link `<a href>`;
 - nessun `TODO` nell'output;
-- link a `/press/` nel footer di ogni pagina;
-- link e asset interni tutti risolti;
+- link a `<base>press/` nel footer di ogni pagina;
+- link e asset interni tutti sotto la base e risolti;
 - nessun file oltre i 25 MiB (limite di Cloudflare Pages).
 
 Se aggiungi una regola al brief, aggiungila anche allo script.
@@ -100,6 +104,7 @@ Note sui campi:
 
 - Token in `src/styles/tokens.css`. Base quasi nera calda, grigi caldi, un solo accento: verde ortica `#a3ad6b`.
 - Font: Instrument Serif per i titoli e IBM Plex Sans per l'interfaccia, entrambi OFL e self-hosted. Massimo due famiglie.
+- Link interni sempre con `url()` da `~/lib/url`, mai `/percorso` scritto a mano: il sito deve funzionare anche sotto una sottocartella.
 - Grana: SVG inline su `body::after` in `global.css`, mossa solo con `transform`; ferma con prefers-reduced-motion.
 - Animazioni solo in opacità e lente. Con reduced motion non ce n'è nessuna.
 - Palette dei giochi: custom properties su `<html>` (in `Base.astro`) con valori già corretti per AA.
@@ -112,8 +117,10 @@ Note sui campi:
 4. Da tastiera: focus visibile; lightbox con frecce, Esc e focus che torna al thumbnail; trailer che non carica nulla da YouTube prima del click.
 5. Dopo modifiche al template, prova ad aggiungere un gioco finto con asset e poi rimuovilo.
 
-## Cloudflare Pages
+## Deploy
 
-- Build command `npm run build`, output `dist`, Node da `.nvmrc` (oppure `NODE_VERSION=22.23.4`).
-- `SITE_URL` è opzionale: abilita og:url e og:image assolute.
-- `_headers` viene generato al build da `astro.config.mjs`.
+**Preview su GitHub Pages.** Il workflow `.github/workflows/pages.yml` parte a ogni push su `main`: build con `BASE_PATH=/<repo>/`, controlli di `verify-dist`, deploy. Va fatta una sola configurazione: Settings, Pages, Source impostato su GitHub Actions. Per provarla in locale: `BASE_PATH=/<repo>/ npm run build && BASE_PATH=/<repo>/ npm run preview`.
+
+**Produzione su Cloudflare Pages.** Build command `npm run build`, output `dist`, Node da `.nvmrc` (oppure `NODE_VERSION=22.23.4`), nessun `BASE_PATH` (sito alla radice). `_headers` viene generato al build da `astro.config.mjs`.
+
+`SITE_URL` è opzionale: abilita og:url e og:image assolute.

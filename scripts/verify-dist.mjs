@@ -13,8 +13,9 @@
 //   - no YouTube resource referenced by the static HTML or CSS (iframes,
 //     scripts, images, preconnects...). Plain <a href> links are allowed.
 //   - no TODO markers leaked into the output
-//   - every page links to /press/ from its footer
-//   - every internal link and asset resolves to a file in dist
+//   - every page links to the press kit (<base>press/) from its footer
+//   - every internal link and asset sits under the base path and resolves
+//     to a file in dist
 //   - no file above Cloudflare Pages' 25 MiB limit
 import { existsSync } from 'node:fs';
 import { readdir, readFile, stat } from 'node:fs/promises';
@@ -23,6 +24,10 @@ import { fileURLToPath } from 'node:url';
 import { CONCEPT, CONCEPT_MODE } from '../src/config/concept.mjs';
 
 const DIST = fileURLToPath(new URL('../dist/', import.meta.url));
+// Same BASE_PATH the build used (astro.config.mjs). '/' at the domain root,
+// '/repo-name/' on a GitHub Pages project site.
+const RAW_BASE = process.env.BASE_PATH || '/';
+const BASE = `/${RAW_BASE.replace(/^\/+|\/+$/g, '')}/`.replace(/^\/\/$/, '/');
 const MAX_FILE_BYTES = 25 * 1024 * 1024;
 const YT = /(?:youtube(?:-nocookie)?\.com|youtu\.be|ytimg\.com|googlevideo\.com|ggpht\.com)/i;
 
@@ -58,7 +63,10 @@ function attrs(tag) {
 }
 
 function resolveInternal(url) {
-  const clean = decodeURI(url.split('#')[0].split('?')[0]);
+  const path = decodeURI(url.split('#')[0].split('?')[0]);
+  // Every internal URL must live under the base, or it 404s on sub-path hosts.
+  if (!path.startsWith(BASE) && path !== BASE.slice(0, -1)) return false;
+  const clean = `/${path.slice(BASE.length)}`;
   if (!clean || clean === '/') return existsSync(join(DIST, 'index.html'));
   const target = join(DIST, clean);
   if (clean.endsWith('/')) return existsSync(join(target, 'index.html'));
@@ -112,7 +120,7 @@ for (const file of htmlFiles) {
   // Footer must link to the press kit.
   const footer = html.match(/<footer\b[\s\S]*?<\/footer>/i)?.[0] ?? '';
   if (!footer) fail(rel, 'footer', 'no <footer>');
-  else if (!/href=["']?\/press\/["'\s>]/.test(footer)) fail(rel, 'footer', 'no link to /press/ in footer');
+  else if (!footer.includes(`href="${BASE}press/"`)) fail(rel, 'footer', `no link to ${BASE}press/ in footer`);
 
   // Internal links and assets resolve.
   for (const m of html.matchAll(/\s(?:href|src)=["']?(\/(?!\/)[^"'\s>]*)/gi)) {
@@ -164,7 +172,7 @@ if (CONCEPT_MODE) {
   if (/X-Robots-Tag:\s*noindex/i.test(headers)) fail('_headers', 'concept-off', 'X-Robots-Tag noindex still present');
 }
 
-const mode = CONCEPT_MODE ? 'concept mode ON' : 'concept mode OFF';
+const mode = `${CONCEPT_MODE ? 'concept mode ON' : 'concept mode OFF'}, base ${BASE}`;
 if (failures.length) {
   console.error(`\nverify-dist: ${failures.length} problem(s), ${mode}\n`);
   for (const f of failures) console.error(`  ✗ ${f}`);

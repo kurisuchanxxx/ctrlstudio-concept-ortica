@@ -24,9 +24,6 @@ function cloudflareHeaders() {
           '',
           '/_astro/*',
           '  Cache-Control: public, max-age=31536000, immutable',
-          '',
-          '/fonts/*',
-          '  Cache-Control: public, max-age=31536000, immutable',
         );
         await writeFile(new URL('_headers', dir), lines.join('\n') + '\n');
       },
@@ -39,6 +36,9 @@ export default defineConfig({
   // Absolute URL of the deployment, used for Open Graph images. Set SITE_URL
   // in the Cloudflare Pages environment once the address is known.
   site: process.env.SITE_URL || undefined,
+  // Sub-path for hosts that serve the site below the domain root, e.g.
+  // BASE_PATH=/repo-name/ on a GitHub Pages project site. Root by default.
+  base: process.env.BASE_PATH || '/',
   i18n: {
     locales: ['en'],
     defaultLocale: 'en',

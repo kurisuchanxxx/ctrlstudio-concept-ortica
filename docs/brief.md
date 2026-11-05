@@ -9,6 +9,7 @@ Note di avvio progetto (decise con Ctrl Studio prima del codice):
 - Dark Product associato come publisher console a Loan Shark e Birds Watching, con TODO di verifica per gioco.
 - Card della griglia in 2:3 (Steam library capsule).
 - Press kit per gioco su `/press/[slug]`.
+- Preview: Ctrl Studio ha scelto GitHub Pages al posto di pages.dev. Il sito supporta quindi un base path (`BASE_PATH`); la produzione resta su Cloudflare Pages alla radice.
 
 ---
 

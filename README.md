@@ -23,8 +23,13 @@ npm run dev
 - [ASSETS.md](ASSETS.md): asset file names, sizes and sources.
 - [docs/brief.md](docs/brief.md): the original brief, in Italian.
 
-## Deploy (Cloudflare Pages)
+## Deploy
+
+**Concept preview on GitHub Pages.** `.github/workflows/pages.yml` builds under `/<repo>/` and deploys on every push to `main`. To set it up once, open repository Settings, then Pages, and set Source to GitHub Actions.
+
+**Production on Cloudflare Pages:**
 
 - Build command: `npm run build`
 - Output directory: `dist`
 - Node: taken from `.nvmrc`
+- Leave `BASE_PATH` unset

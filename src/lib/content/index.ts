@@ -1,5 +1,6 @@
 // Public data API for pages and components.
 // Swap ./source-astro for another source to change where content comes from.
+import { url } from '../url';
 import { bundledPressKit, gameAssets, studioAssets } from './assets';
 import { byNewest, deriveGameCore, derivePalette, pickFeatured } from './derive';
 import { loadGames, loadStudio } from './source-astro';
@@ -77,8 +78,8 @@ export function getGames(): Promise<Game[]> {
         pressQuotes: raw.pressQuotes.map((q) => ({ ...q, game: raw.title })),
         pressKitUrl: raw.pressKitUrl ?? bundledPressKit(`games/${raw.slug}`),
         assets,
-        href: `/games/${raw.slug}/`,
-        pressHref: `/press/${raw.slug}/`,
+        href: url(`games/${raw.slug}/`),
+        pressHref: url(`press/${raw.slug}/`),
       };
     });
 

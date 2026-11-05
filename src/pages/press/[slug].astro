@@ -10,6 +10,7 @@ import AssetTile from '~/components/press/AssetTile.astro';
 import PressDownload from '~/components/press/PressDownload.astro';
 import { useTranslations } from '~/i18n';
 import { getGames, getStudio, type Game } from '~/lib/content';
+import { url } from '~/lib/url';
 
 export async function getStaticPaths() {
   const games = await getGames();
@@ -35,7 +36,7 @@ const shots = game.assets.screenshots;
   <div class="container page">
     <header class="intro">
       <p class="label crumbs">
-        <a href="/press/">{t('press.backToKit')}</a>
+        <a href={url('press/')}>{t('press.backToKit')}</a>
         <span aria-hidden="true">/</span>
         <span>{game.title}</span>
       </p>

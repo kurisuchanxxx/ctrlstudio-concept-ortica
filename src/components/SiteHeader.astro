@@ -1,18 +1,19 @@
 ---
 import { useTranslations } from '~/i18n';
+import { stripBase, url } from '~/lib/url';
 
 const t = useTranslations(Astro.currentLocale);
-const path = Astro.url.pathname;
+const path = stripBase(Astro.url.pathname);
 const links = [
-  { href: '/#games', label: t('nav.games'), current: path.startsWith('/games/') },
-  { href: '/press/', label: t('nav.press'), current: path.startsWith('/press/') },
-  { href: '/#contact', label: t('nav.contact'), current: false },
+  { href: url('#games'), label: t('nav.games'), current: path.startsWith('/games/') },
+  { href: url('press/'), label: t('nav.press'), current: path.startsWith('/press/') },
+  { href: url('#contact'), label: t('nav.contact'), current: false },
 ];
 ---
 
 <header class="site-header">
   <div class="container inner">
-    <a class="wordmark" href="/" aria-label={t('a11y.home')}>{t('site.name')}</a>
+    <a class="wordmark" href={url()} aria-label={t('a11y.home')}>{t('site.name')}</a>
     <nav aria-label={t('a11y.mainNav')}>
       <ul role="list">
         {
