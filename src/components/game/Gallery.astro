@@ -1,0 +1,200 @@
+---
+// Screenshot gallery with a hand-written lightbox (src/scripts/lightbox.ts).
+// Without JS each thumbnail links to the full image. With no screenshots
+// yet, three placeholders keep the layout.
+import { getImage } from 'astro:assets';
+import Art from '~/components/Art.astro';
+import ArtSlot from '~/components/ArtSlot.astro';
+import { useTranslations } from '~/i18n';
+import type { Game } from '~/lib/content';
+
+interface Props {
+  game: Game;
+}
+
+const { game } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const shots = game.assets.screenshots;
+const total = shots.length;
+
+const items = await Promise.all(
+  shots.map(async (shot, i) => {
+    const width = Math.min(shot.width, 1920);
+    const height = Math.round((shot.height * width) / shot.width);
+    const full = await getImage({
+      src: shot.src,
+      width,
+      ...(typeof shot.src === 'string' ? { height } : {}),
+      format: 'webp',
+      quality: 82,
+    });
+    return {
+      shot,
+      href: full.src,
+      width,
+      height,
+      alt: t('gallery.alt', { title: game.title, n: i + 1 }),
+    };
+  }),
+);
+---
+
+<section class="gallery" aria-labelledby="gallery-title" data-gallery>
+  <h2 id="gallery-title" class="label heading">{t('gallery.title')}</h2>
+  {
+    total > 0 ? (
+      <ul role="list" class="grid">
+        {items.map((item, i) => (
+          <li>
+            <a
+              class="thumb"
+              href={item.href}
+              data-lightbox-item
+              data-width={item.width}
+              data-height={item.height}
+              data-alt={item.alt}
+              aria-label={t('gallery.open', { n: i + 1, total })}
+            >
+              <Art
+                asset={item.shot}
+                alt={item.alt}
+                ratio="16/9"
+                slotLabel=""
+                widths={[480, 720, 960]}
+                sizes="(min-width: 64rem) 25rem, (min-width: 40rem) 45vw, 100vw"
+              />
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <ul role="list" class="grid">
+        {[1, 2, 3].map((n) => (
+          <li>
+            <ArtSlot ratio="16/9" label={t('slot.screenshot', { n: String(n).padStart(2, '0') })} />
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    total > 0 && (
+      <dialog
+        class="lightbox"
+        data-lightbox
+        aria-label={t('gallery.viewer')}
+        data-count-template={t('gallery.count', { n: '{n}', total: '{total}' })}
+      >
+        <div class="lightbox__bar">
+          <p class="label" data-lightbox-count aria-live="polite" />
+          <button type="button" class="btn btn--ghost" data-lightbox-close>
+            {t('gallery.close')}
+          </button>
+        </div>
+        <figure class="lightbox__figure">
+          <img data-lightbox-img alt="" width="1920" height="1080" />
+        </figure>
+        <div class="lightbox__nav">
+          <button type="button" class="btn btn--ghost" data-lightbox-prev>
+            <span aria-hidden="true">←</span> {t('gallery.prev')}
+          </button>
+          <button type="button" class="btn btn--ghost" data-lightbox-next>
+            {t('gallery.next')} <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </dialog>
+    )
+  }
+</section>
+
+<script>
+  import { initLightbox } from '~/scripts/lightbox';
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach(initLightbox);
+</script>
+
+<style>
+  .heading {
+    margin-bottom: var(--space-5);
+  }
+
+  .grid {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+  }
+
+  @media (min-width: 40rem) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .thumb {
+    display: block;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .thumb :global(.art) {
+    transition: opacity var(--dur) var(--ease);
+  }
+
+  .thumb:hover :global(.art) {
+    opacity: 0.85;
+  }
+
+  .lightbox {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: var(--space-4) var(--gutter);
+    border: 0;
+    background: rgb(var(--color-scrim) / 0.96);
+  }
+
+  .lightbox[open] {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: var(--space-4);
+  }
+
+  .lightbox::backdrop {
+    background: rgb(var(--color-scrim) / 0.9);
+  }
+
+  .lightbox__bar,
+  .lightbox__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .lightbox__figure {
+    display: grid;
+    place-items: center;
+    min-height: 0;
+  }
+
+  .lightbox__figure img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: opacity var(--dur) var(--ease);
+  }
+
+  .lightbox__figure img:global(.is-loading) {
+    opacity: 0;
+  }
+</style>

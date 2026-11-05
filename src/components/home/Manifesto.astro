@@ -1,0 +1,54 @@
+---
+import { useTranslations } from '~/i18n';
+import type { Studio } from '~/lib/content';
+
+interface Props {
+  studio: Studio;
+}
+
+const { studio } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section class="section manifesto" aria-labelledby="manifesto-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="manifesto-title" class="label">{t('home.manifesto')}</h2>
+    </div>
+    <div class="lines" data-reveal>
+      {studio.manifesto.map((line) => <p>{line}</p>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .lines {
+    display: grid;
+    gap: var(--space-6);
+    max-width: 58rem;
+  }
+
+  .lines p {
+    font-family: var(--font-display);
+    font-size: var(--text-display-s);
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+
+  .lines p:nth-child(2) {
+    color: var(--color-muted);
+  }
+
+  .lines p:last-child {
+    font-style: italic;
+  }
+
+  @media (min-width: 64rem) {
+    .lines p:nth-child(2) {
+      margin-left: 12%;
+    }
+    .lines p:nth-child(3) {
+      margin-left: 24%;
+    }
+  }
+</style>

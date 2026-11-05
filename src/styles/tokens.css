@@ -1,0 +1,72 @@
+/*
+  Design tokens. The only place for colours, type, spacing and motion.
+  Game pages override --color-bg, --color-accent, --color-accent-ink and
+  --color-glow on <html> with AA-checked values from the data layer
+  (src/lib/content/derive.ts mirrors the values below).
+*/
+:root {
+  /* Colour: warm near-black, warm greys, one accent (nettle green, from Ortica). */
+  --color-bg: #0e0d0c;
+  --color-surface: color-mix(in srgb, var(--color-bg), #fff 3.5%);
+  --color-surface-2: color-mix(in srgb, var(--color-bg), #fff 6%);
+  --color-line: color-mix(in srgb, var(--color-bg), #e6e1d8 14%);
+  --color-line-strong: color-mix(in srgb, var(--color-bg), #e6e1d8 28%);
+  --color-text: #e6e1d8; /* 14.9:1 on bg */
+  --color-muted: #a29c92; /* 7.1:1 on bg, 6.3:1 on surface-2 */
+  --color-subtle: #8f897f; /* 5.6:1 on bg, 4.9:1 on surface-2 */
+  --color-accent: #a3ad6b; /* 8.1:1 on bg */
+  --color-accent-ink: #0e0d0c; /* text on accent: 8.1:1 */
+  --color-glow: #3b4026; /* decorative only */
+  --color-scrim: 14 13 12; /* rgb channels of bg, for overlays */
+
+  /* Type */
+  --font-sans: 'IBM Plex Sans', 'Plex Fallback', system-ui, sans-serif;
+  --font-display: 'Instrument Serif', 'Serif Fallback', Georgia, serif;
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+  --text-display-s: clamp(1.875rem, 1.4rem + 2vw, 2.75rem);
+  --text-display-m: clamp(2.375rem, 1.6rem + 3.6vw, 4.5rem);
+  --text-display-l: clamp(2.75rem, 1.4rem + 7vw, 7.5rem);
+  --leading-display: 0.98;
+  --leading-body: 1.62;
+  --tracking-label: 0.14em;
+
+  /* Space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --section-pad: clamp(5rem, 3rem + 9vw, 10rem);
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --container: 78rem;
+  --measure: 62ch;
+  --banner-h: 2.25rem;
+
+  /* Motion: slow opacity only */
+  --dur-fast: 200ms;
+  --dur: 350ms;
+  --dur-slow: 900ms;
+  --dur-art: 1600ms;
+  --ease: cubic-bezier(0.25, 0.6, 0.25, 1);
+
+  /* Layers */
+  --z-header: 10;
+  --z-banner: 50;
+  --z-grain: 100;
+}
+
+@media (max-width: 40rem) {
+  :root {
+    --banner-h: 3rem;
+  }
+}

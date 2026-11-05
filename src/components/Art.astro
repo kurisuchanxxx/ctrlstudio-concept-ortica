@@ -1,0 +1,72 @@
+---
+// Optimised responsive image (AVIF/WebP via Astro's pipeline) or, when the
+// asset is missing, an ArtSlot with the same proportions.
+import { Picture } from 'astro:assets';
+import ArtSlot from '~/components/ArtSlot.astro';
+import type { ImageAsset } from '~/lib/content';
+
+interface Props {
+  asset: ImageAsset | null;
+  alt: string;
+  /** Ratio of the frame, e.g. 16/9. The image is cropped to it with object-fit. */
+  ratio: string;
+  slotLabel: string;
+  widths: number[];
+  sizes: string;
+  position?: string;
+  fill?: boolean;
+  priority?: boolean;
+  class?: string;
+}
+
+const {
+  asset,
+  alt,
+  ratio,
+  slotLabel,
+  widths,
+  sizes,
+  position = '50% 50%',
+  fill = false,
+  priority = false,
+  class: className,
+} = Astro.props;
+
+const remoteSize = asset && typeof asset.src === 'string' ? { width: asset.width, height: asset.height } : {};
+---
+
+{
+  asset ? (
+    <Picture
+      src={asset.src}
+      {...remoteSize}
+      alt={alt}
+      widths={widths.filter((w) => w <= asset.width).length ? widths.filter((w) => w <= asset.width) : [asset.width]}
+      sizes={sizes}
+      formats={['avif', 'webp']}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding={priority ? 'sync' : 'async'}
+      fetchpriority={priority ? 'high' : 'auto'}
+      class:list={['art', { 'art--fill': fill }, className]}
+      pictureAttributes={{ class: fill ? 'art-picture art-picture--fill' : 'art-picture' }}
+      style={`object-position: ${position}; ${fill ? '' : `aspect-ratio: ${ratio};`}`}
+    />
+  ) : (
+    <ArtSlot ratio={ratio} label={slotLabel} fill={fill} class={className} />
+  )
+}
+
+<style is:global>
+  .art {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .art-picture--fill,
+  .art--fill {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

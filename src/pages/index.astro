@@ -1,0 +1,28 @@
+---
+import Base from '~/layouts/Base.astro';
+import TrailerDialog from '~/components/TrailerDialog.astro';
+import Contact from '~/components/home/Contact.astro';
+import GamesGrid from '~/components/home/GamesGrid.astro';
+import HomeHero from '~/components/home/HomeHero.astro';
+import Manifesto from '~/components/home/Manifesto.astro';
+import Newsletter from '~/components/home/Newsletter.astro';
+import Recognition from '~/components/home/Recognition.astro';
+import { getFeaturedGame, getGames, getPressQuotes, getStudio } from '~/lib/content';
+
+const [studio, games, featured, quotes] = await Promise.all([
+  getStudio(),
+  getGames(),
+  getFeaturedGame(),
+  getPressQuotes(),
+]);
+---
+
+<Base description={studio.shortDescription} ogImage={featured?.assets.keyArt}>
+  <HomeHero game={featured} studio={studio} />
+  <Manifesto studio={studio} />
+  <GamesGrid games={games} />
+  <Recognition games={games} quotes={quotes} />
+  <Newsletter studio={studio} />
+  <Contact studio={studio} />
+  {featured?.trailer.youtubeId && <TrailerDialog />}
+</Base>

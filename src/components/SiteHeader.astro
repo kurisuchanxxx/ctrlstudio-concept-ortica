@@ -1,0 +1,84 @@
+---
+import { useTranslations } from '~/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+const path = Astro.url.pathname;
+const links = [
+  { href: '/#games', label: t('nav.games'), current: path.startsWith('/games/') },
+  { href: '/press/', label: t('nav.press'), current: path.startsWith('/press/') },
+  { href: '/#contact', label: t('nav.contact'), current: false },
+];
+---
+
+<header class="site-header">
+  <div class="container inner">
+    <a class="wordmark" href="/" aria-label={t('a11y.home')}>{t('site.name')}</a>
+    <nav aria-label={t('a11y.mainNav')}>
+      <ul role="list">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} aria-current={l.current ? 'page' : undefined}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: var(--z-header);
+    padding-block: var(--space-5);
+    background: linear-gradient(rgb(var(--color-scrim) / 0.7), rgb(var(--color-scrim) / 0));
+  }
+
+  .inner {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .wordmark {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  ul {
+    display: flex;
+    gap: clamp(0.875rem, 3vw, 2.25rem);
+    margin: 0;
+  }
+
+  nav a {
+    display: inline-block;
+    padding-block: 0.5rem;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  nav a[aria-current='page'] {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 22.5rem) {
+    .wordmark {
+      font-size: 1.3rem;
+    }
+    nav a {
+      letter-spacing: 0.1em;
+    }
+  }
+</style>

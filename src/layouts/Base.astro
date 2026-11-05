@@ -1,0 +1,91 @@
+---
+import '~/styles/global.css';
+import { getImage } from 'astro:assets';
+import { CONCEPT_MODE } from '~/config/concept.mjs';
+import ConceptBanner from '~/components/ConceptBanner.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import SiteFooter from '~/components/SiteFooter.astro';
+import { useTranslations } from '~/i18n';
+import type { GamePalette, ImageAsset } from '~/lib/content';
+
+interface Props {
+  title?: string;
+  description: string;
+  /** Game pages pass their AA-checked palette, applied as CSS custom properties. */
+  palette?: GamePalette;
+  ogImage?: ImageAsset | null;
+}
+
+const { title, description, palette, ogImage } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const fullTitle = title ? `${title} · ${t('site.titleSuffix')}` : t('site.homeTitle');
+const lang = Astro.currentLocale ?? 'en';
+
+const themeStyle = palette
+  ? `--color-bg:${palette.base};--color-accent:${palette.accent};--color-accent-ink:${palette.accentInk};--color-glow:${palette.glow}`
+  : undefined;
+
+// Open Graph image needs an absolute URL, so only with SITE_URL set.
+let ogImageUrl: string | undefined;
+if (Astro.site && ogImage) {
+  const width = Math.min(1200, ogImage.width);
+  const height = Math.round((width * ogImage.height) / ogImage.width);
+  const img = await getImage({
+    src: ogImage.src,
+    width,
+    // Remote images need both dimensions; local ones infer the height.
+    ...(typeof ogImage.src === 'string' ? { height } : {}),
+    format: 'jpg',
+  });
+  ogImageUrl = new URL(img.src, Astro.site).href;
+}
+---
+
+<!doctype html>
+<html lang={lang} style={themeStyle}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {CONCEPT_MODE && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content={palette?.base ?? '#0e0d0c'} />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={t('site.name')} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    {Astro.site && <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />}
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t('a11y.skip')}</a>
+    <ConceptBanner />
+    <div class="page">
+      <SiteHeader />
+      <main id="main" tabindex="-1">
+        <slot />
+      </main>
+      <SiteFooter />
+    </div>
+    <script>
+      import { initReveal } from '~/scripts/reveal';
+      initReveal();
+    </script>
+  </body>
+</html>
+
+<style>
+  .page {
+    position: relative;
+  }
+
+  main:focus {
+    outline: none;
+  }
+</style>

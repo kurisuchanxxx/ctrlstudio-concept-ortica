@@ -1,0 +1,35 @@
+---
+import Base from '~/layouts/Base.astro';
+import { useTranslations } from '~/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<Base title={t('notFound.title')} description={t('notFound.text')}>
+  <div class="container page">
+    <p class="label">404</p>
+    <h1 class="title">{t('notFound.title')}</h1>
+    <p class="text">{t('notFound.text')}</p>
+    <p><a class="btn btn--ghost" href="/">{t('notFound.back')}</a></p>
+  </div>
+</Base>
+
+<style>
+  .page {
+    display: grid;
+    gap: var(--space-5);
+    align-content: center;
+    min-height: 80svh;
+    padding-block: calc(var(--space-10) + var(--space-5)) var(--space-10);
+  }
+
+  .title {
+    font-size: var(--text-display-l);
+  }
+
+  .text {
+    max-width: 40ch;
+    font-size: var(--text-lg);
+    color: var(--color-muted);
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+// Steam call to action (Buy or Wishlist, decided by release date at build)
+// plus a button for each other platform where the game is out.
+// A missing store URL renders a pending button instead of a dead link.
+import { useTranslations } from '~/i18n';
+import type { Game } from '~/lib/content';
+
+interface Props {
+  game: Game;
+  /** Only the Steam CTA (home hero). */
+  steamOnly?: boolean;
+}
+
+const { game, steamOnly = false } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+
+const steamLabel = game.primaryCta?.kind === 'buy' ? t('cta.buySteam') : t('cta.wishlistSteam');
+const others = steamOnly ? [] : game.storeButtons;
+---
+
+{
+  game.primaryCta &&
+    (game.primaryCta.url ? (
+      <a class="btn btn--primary" href={game.primaryCta.url}>
+        {steamLabel}
+      </a>
+    ) : (
+      <span class="btn btn--pending">
+        {steamLabel}
+        <span class="btn__note">{t('pending.link')}</span>
+      </span>
+    ))
+}
+{
+  others.map((p) =>
+    p.url ? (
+      <a class="btn btn--ghost" href={p.url}>
+        {t('cta.store', { store: p.store })}
+      </a>
+    ) : (
+      <span class="btn btn--pending">
+        {t('cta.store', { store: p.store })}
+        <span class="btn__note">{t('pending.link')}</span>
+      </span>
+    ),
+  )
+}

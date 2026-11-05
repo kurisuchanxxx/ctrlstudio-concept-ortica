@@ -1,0 +1,50 @@
+---
+import GameCard from '~/components/home/GameCard.astro';
+import { useTranslations } from '~/i18n';
+import type { Game } from '~/lib/content';
+
+interface Props {
+  games: Game[];
+}
+
+const { games } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section id="games" class="section" aria-labelledby="games-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="games-title" class="label">{t('home.games')}</h2>
+    </div>
+    <ul role="list" class="grid">
+      {
+        games.map((game) => (
+          <li>
+            <GameCard game={game} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    gap: var(--space-8) var(--space-6);
+    margin: 0;
+  }
+
+  @media (min-width: 40rem) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-9) var(--space-7);
+    }
+  }
+</style>

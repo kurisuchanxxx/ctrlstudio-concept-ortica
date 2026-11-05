@@ -1,0 +1,129 @@
+---
+import Art from '~/components/Art.astro';
+import StoreButtons from '~/components/StoreButtons.astro';
+import TrailerButton from '~/components/TrailerButton.astro';
+import { entryLabel, stateLabel } from '~/components/labels';
+import { useTranslations } from '~/i18n';
+import type { Game } from '~/lib/content';
+
+interface Props {
+  game: Game;
+}
+
+const { game } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section class="hero" aria-labelledby="game-title">
+  <div class="hero__art">
+    <Art
+      asset={game.assets.keyArt}
+      alt=""
+      ratio="16/9"
+      slotLabel={t('slot.keyArt')}
+      widths={[640, 960, 1280, 1920, 2560]}
+      sizes="100vw"
+      position={game.artFocus}
+      fill
+      priority
+    />
+    <div class="hero__scrim"></div>
+  </div>
+  <div class="container hero__content">
+    <p class="label meta">
+      <span>{entryLabel(t, game)}</span>
+      <span aria-hidden="true">·</span>
+      <span class="state">{stateLabel(t, game, Astro.currentLocale)}</span>
+      {
+        game.genre && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>{game.genre}</span>
+          </>
+        )
+      }
+    </p>
+    <h1 id="game-title" class="title">{game.title}</h1>
+    <p class="logline">{game.logline}</p>
+    <div class="btn-row">
+      <StoreButtons game={game} />
+      <TrailerButton game={game} mode="jump" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: grid;
+    min-height: min(calc(100svh - var(--banner-h)), 64rem);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero__art {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__art :global(.art) {
+      animation: emerge var(--dur-art) var(--ease) both;
+    }
+  }
+
+  @keyframes emerge {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to top,
+        var(--color-bg) 0%,
+        color-mix(in srgb, var(--color-bg) 90%, transparent) 35%,
+        color-mix(in srgb, var(--color-bg) 40%, transparent) 70%,
+        color-mix(in srgb, var(--color-bg) 15%, transparent) 100%
+      ),
+      linear-gradient(to right, color-mix(in srgb, var(--color-bg) 60%, transparent), transparent 60%);
+  }
+
+  .hero__content {
+    align-self: end;
+    padding-top: calc(var(--space-10) + var(--space-6));
+    padding-bottom: var(--space-8);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em;
+    margin-bottom: var(--space-5);
+  }
+
+  .state {
+    color: var(--color-accent);
+  }
+
+  .title {
+    max-width: 14ch;
+    font-size: var(--text-display-l);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+  }
+
+  .logline {
+    max-width: 36ch;
+    margin-block: var(--space-5) var(--space-6);
+    font-size: var(--text-xl);
+    line-height: 1.4;
+  }
+</style>

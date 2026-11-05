@@ -1,0 +1,101 @@
+---
+// Verified press quotes, each with its source. Until there are enough,
+// empty slots show where they will go. Never fill these with invented text.
+import { useTranslations } from '~/i18n';
+import type { PressQuote } from '~/lib/content';
+
+interface Props {
+  quotes: PressQuote[];
+  /** Minimum number of slots shown, filled with placeholders. */
+  slots?: number;
+}
+
+const { quotes, slots = 3 } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const empty = Math.max(0, slots - quotes.length);
+---
+
+<ul role="list" class="quotes">
+  {
+    quotes.map((q) => (
+      <li>
+        <figure class="quote">
+          <blockquote cite={q.url}>
+            <p>{q.quote}</p>
+          </blockquote>
+          <figcaption class="label">
+            <a href={q.url}>{q.outlet}</a>
+            {q.author && <span> · {q.author}</span>}
+            {q.game && <span> · {q.game}</span>}
+          </figcaption>
+        </figure>
+      </li>
+    ))
+  }
+  {
+    Array.from({ length: empty }).map(() => (
+      <li class="slot-item">
+        <div class="quote quote--slot">
+          <span class="mark" aria-hidden="true">“</span>
+          <p class="label">{t('pending.quote')}</p>
+          <p class="note">{t('pending.quoteNote')}</p>
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .quotes {
+    display: grid;
+    gap: var(--space-5);
+    margin: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .quotes {
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .slot-item:nth-child(n + 3) {
+      display: none;
+    }
+  }
+
+  .quote {
+    display: grid;
+    gap: var(--space-4);
+    height: 100%;
+    padding: var(--space-6);
+    background: var(--color-surface);
+  }
+
+  .quote blockquote {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    line-height: 1.25;
+  }
+
+  .quote--slot {
+    align-content: start;
+    min-height: 13rem;
+    border: 1px dashed var(--color-line-strong);
+    background: transparent;
+  }
+
+  .mark {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    line-height: 0.6;
+    color: var(--color-line-strong);
+  }
+
+  .note {
+    max-width: 26ch;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+// Press kit .zip download, or a planned slot until the file exists.
+import { useTranslations } from '~/i18n';
+
+interface Props {
+  href: string | null;
+}
+
+const { href } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+---
+
+{
+  href ? (
+    <a class="btn btn--primary" href={href} download>
+      {t('press.download')}
+    </a>
+  ) : (
+    <span class="btn btn--pending">
+      {t('press.download')}
+      <span class="btn__note">{t('press.downloadPending')}</span>
+    </span>
+  )
+}

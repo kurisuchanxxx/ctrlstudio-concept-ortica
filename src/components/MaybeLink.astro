@@ -1,0 +1,35 @@
+---
+// A link when the URL is known, otherwise the label with a clean
+// "link pending" marker. Used for every external URL that may be missing.
+import { useTranslations } from '~/i18n';
+
+interface Props {
+  href: string | null;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+---
+
+{
+  href ? (
+    <a href={href} class={className}>
+      <slot />
+    </a>
+  ) : (
+    <span class:list={[className, 'maybe-pending']}>
+      <slot />
+      <span class="pending">{t('pending.link')}</span>
+    </span>
+  )
+}
+
+<style>
+  .maybe-pending {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5em;
+  }
+</style>

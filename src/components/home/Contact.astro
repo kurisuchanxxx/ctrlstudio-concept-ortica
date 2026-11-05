@@ -1,0 +1,100 @@
+---
+import ContactValue from '~/components/ContactValue.astro';
+import MaybeLink from '~/components/MaybeLink.astro';
+import { useTranslations } from '~/i18n';
+import type { Studio } from '~/lib/content';
+
+interface Props {
+  studio: Studio;
+}
+
+const { studio } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const publisher = studio.publishers.find((p) => p.role.toLowerCase().includes('console'));
+---
+
+<section id="contact" class="section" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="contact-title" class="label">{t('home.contact')}</h2>
+    </div>
+    <div class="layout" data-reveal>
+      <p class="intro">{t('home.contact.text')}</p>
+      <dl class="facts">
+        <div>
+          <dt class="label">{t('facts.pressContact')}</dt>
+          <dd><ContactValue email={studio.contacts.press} /></dd>
+        </div>
+        <div>
+          <dt class="label">{t('facts.businessContact')}</dt>
+          <dd><ContactValue email={studio.contacts.business} /></dd>
+        </div>
+        <div>
+          <dt class="label">{t('footer.pressKit')}</dt>
+          <dd><a href="/press/">{t('press.title')}</a></dd>
+        </div>
+        {
+          publisher && (
+            <div>
+              <dt class="label">{t('facts.publisher')}</dt>
+              <dd>
+                <MaybeLink href={publisher.url}>{publisher.name}</MaybeLink>
+                <span class="muted">
+                  {publisher.city}, {publisher.country}
+                </span>
+              </dd>
+            </div>
+          )
+        }
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .layout {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .intro {
+    font-family: var(--font-display);
+    font-size: var(--text-display-s);
+    line-height: 1.1;
+    max-width: 18ch;
+  }
+
+  .facts {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .facts div {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .facts dd {
+    font-size: var(--text-lg);
+    display: grid;
+    gap: var(--space-1);
+    justify-items: start;
+  }
+
+  .muted {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: 1fr 1.4fr;
+    }
+  }
+</style>

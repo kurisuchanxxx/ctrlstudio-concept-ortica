@@ -1,0 +1,206 @@
+---
+// Home hero. Answers, in order: what can I play now (featured game, Steam
+// CTA in one click, trailer), and who is Studio Ortica (name + formula).
+import Art from '~/components/Art.astro';
+import StoreButtons from '~/components/StoreButtons.astro';
+import TrailerButton from '~/components/TrailerButton.astro';
+import { entryLabel, stateLabel } from '~/components/labels';
+import { useTranslations } from '~/i18n';
+import type { Game, Studio } from '~/lib/content';
+
+interface Props {
+  game: Game | null;
+  studio: Studio;
+}
+
+const { game, studio } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section
+  class="hero"
+  aria-labelledby={game ? 'hero-game' : 'hero-studio'}
+  style={game ? `--color-glow:${game.palette.glow}` : undefined}
+>
+  <div class="hero__art">
+    {
+      game && (
+        <Art
+          asset={game.assets.keyArt}
+          alt=""
+          ratio="16/9"
+          slotLabel={t('slot.keyArt')}
+          widths={[640, 960, 1280, 1920, 2560]}
+          sizes="100vw"
+          position={game.artFocus}
+          fill
+          priority
+        />
+      )
+    }
+    <div class="hero__scrim"></div>
+  </div>
+
+  <div class="container hero__content">
+    {
+      game && (
+        <div class="hero__game">
+          <p class="label hero__meta">
+            <span>{entryLabel(t, game)}</span>
+            <span aria-hidden="true">·</span>
+            <span class="hero__state">{stateLabel(t, game, Astro.currentLocale)}</span>
+            {game.genre && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>{game.genre}</span>
+              </>
+            )}
+          </p>
+          <h2 id="hero-game" class="hero__title">
+            <a href={game.href}>{game.title}</a>
+          </h2>
+          <p class="hero__logline">{game.logline}</p>
+          <div class="btn-row">
+            <StoreButtons game={game} steamOnly />
+            <TrailerButton game={game} mode="dialog" />
+          </div>
+          <p class="hero__more">
+            <a href={game.href}>{t('cta.aboutGame')}</a>
+          </p>
+        </div>
+      )
+    }
+
+    <div class="hero__studio">
+      <h1 id="hero-studio" class="hero__studio-name">{studio.name}</h1>
+      <p class="hero__formula">{studio.formula}</p>
+      <p class="label">
+        {t('home.hero.studioLine', { city: studio.location.city, year: studio.founded })}
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: grid;
+    min-height: calc(100svh - var(--banner-h));
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero__art {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__art :global(.art) {
+      animation: emerge var(--dur-art) var(--ease) both;
+    }
+  }
+
+  @keyframes emerge {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Keeps every line of hero text AA over any key art. */
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to top,
+        rgb(var(--color-scrim) / 0.97) 0%,
+        rgb(var(--color-scrim) / 0.9) 38%,
+        rgb(var(--color-scrim) / 0.45) 68%,
+        rgb(var(--color-scrim) / 0.2) 100%
+      ),
+      linear-gradient(to right, rgb(var(--color-scrim) / 0.6), rgb(var(--color-scrim) / 0) 60%);
+  }
+
+  .hero__content {
+    display: grid;
+    align-content: end;
+    gap: var(--space-8);
+    padding-top: calc(var(--space-10) + var(--space-6));
+    padding-bottom: var(--space-8);
+  }
+
+  .hero__game {
+    max-width: 46rem;
+  }
+
+  .hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em;
+    margin-bottom: var(--space-5);
+  }
+
+  .hero__state {
+    color: var(--color-accent);
+  }
+
+  .hero__title {
+    font-size: var(--text-display-l);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+  }
+
+  .hero__title a {
+    text-decoration: none;
+  }
+
+  .hero__title a:hover {
+    color: inherit;
+  }
+
+  .hero__logline {
+    max-width: 36ch;
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-6);
+    font-size: var(--text-xl);
+    line-height: 1.4;
+    color: var(--color-text);
+  }
+
+  .hero__more {
+    margin-top: var(--space-5);
+    font-size: var(--text-sm);
+  }
+
+  .hero__studio {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 30rem;
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-line-strong);
+  }
+
+  .hero__studio-name {
+    font-size: var(--text-display-s);
+  }
+
+  .hero__formula {
+    color: var(--color-text);
+  }
+
+  @media (min-width: 64rem) {
+    .hero__content {
+      grid-template-columns: minmax(0, 1fr) minmax(16rem, 24rem);
+      align-items: end;
+      gap: var(--space-8);
+    }
+    .hero__studio {
+      margin-bottom: var(--space-2);
+    }
+  }
+</style>

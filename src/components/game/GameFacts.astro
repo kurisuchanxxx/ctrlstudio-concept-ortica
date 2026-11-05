@@ -1,0 +1,167 @@
+---
+// Quick fact sheet for a game. Missing facts show a "Pending" marker.
+import MaybeLink from '~/components/MaybeLink.astro';
+import { platformDate } from '~/components/labels';
+import { useTranslations } from '~/i18n';
+import { formatDuration, type Game, type Studio } from '~/lib/content';
+
+interface Props {
+  game: Game;
+  studio: Studio;
+  /** Press variant adds developer, links and contact rows. */
+  variant?: 'game' | 'press';
+}
+
+const { game, studio, variant = 'game' } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale;
+const steam = game.platforms.find((p) => p.id === 'steam');
+---
+
+<dl class="facts">
+  {
+    variant === 'press' && (
+      <div class="row">
+        <dt class="label">{t('facts.developer')}</dt>
+        <dd>
+          {studio.name}, {studio.location.city}, {studio.location.country}
+        </dd>
+      </div>
+    )
+  }
+  <div class="row">
+    <dt class="label">{t('facts.duration')}</dt>
+    <dd>
+      {
+        game.duration ? (
+          <>
+            {formatDuration(game.duration)} <span class="muted">· {t('game.sitting')}</span>
+          </>
+        ) : (
+          <span class="pending">{t('pending.label')}</span>
+        )
+      }
+    </dd>
+  </div>
+  <div class="row">
+    <dt class="label">{t('facts.price')}</dt>
+    <dd>{game.price ?? <span class="pending">{t('pending.label')}</span>}</dd>
+  </div>
+  <div class="row">
+    <dt class="label">{t('facts.release')}</dt>
+    <dd>
+      <ul role="list" class="platforms">
+        {
+          game.platforms.map((p) => (
+            <li>
+              <span>{p.name}</span>
+              <span class:list={['muted', { accent: p.state === 'upcoming' }]}>{platformDate(t, p, locale)}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </dd>
+  </div>
+  <div class="row">
+    <dt class="label">{t('facts.languages')}</dt>
+    <dd>
+      {game.languages.length ? game.languages.join(', ') : <span class="pending">{t('pending.label')}</span>}
+    </dd>
+  </div>
+  {
+    game.consolePublisher && (
+      <div class="row">
+        <dt class="label">{t('facts.publisher')}</dt>
+        <dd>
+          <MaybeLink href={game.consolePublisher.url}>{game.consolePublisher.name}</MaybeLink>
+          <span class="muted">
+            {' '}
+            · {game.consolePublisher.city}, {game.consolePublisher.country}
+          </span>
+        </dd>
+      </div>
+    )
+  }
+  {
+    game.awards.length > 0 && (
+      <div class="row">
+        <dt class="label">{t('facts.recognition')}</dt>
+        <dd>
+          <ul role="list" class="plain">
+            {game.awards.map((a) => (
+              <li>
+                {a.result}, {a.category}, {a.event}
+              </li>
+            ))}
+          </ul>
+        </dd>
+      </div>
+    )
+  }
+  {
+    variant === 'press' && (
+      <>
+        <div class="row">
+          <dt class="label">{t('facts.website')}</dt>
+          <dd>
+            <a href={game.href}>{game.title}</a>
+          </dd>
+        </div>
+        {steam && (
+          <div class="row">
+            <dt class="label">{t('facts.steam')}</dt>
+            <dd>
+              <MaybeLink href={steam.url}>Steam</MaybeLink>
+            </dd>
+          </div>
+        )}
+      </>
+    )
+  }
+</dl>
+
+<style>
+  .facts {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .row {
+    display: grid;
+    gap: var(--space-2);
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  @media (min-width: 40rem) {
+    .row {
+      grid-template-columns: 11rem minmax(0, 1fr);
+      gap: var(--space-5);
+    }
+  }
+
+  dt {
+    padding-top: 0.2em;
+  }
+
+  .platforms,
+  .plain {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+  }
+
+  .platforms li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 var(--space-4);
+  }
+
+  .muted {
+    color: var(--color-muted);
+  }
+
+  .accent {
+    color: var(--color-accent);
+  }
+</style>

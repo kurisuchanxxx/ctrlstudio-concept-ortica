@@ -1,0 +1,51 @@
+---
+import AwardList from '~/components/AwardList.astro';
+import PressQuotes from '~/components/PressQuotes.astro';
+import { useTranslations } from '~/i18n';
+import type { Game, PressQuote } from '~/lib/content';
+
+interface Props {
+  games: Game[];
+  quotes: PressQuote[];
+}
+
+const { games, quotes } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const awards = games.flatMap((g) => g.awards.map((award) => ({ award, game: g.title })));
+---
+
+<section class="section" aria-labelledby="recognition-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="recognition-title" class="label">{t('home.recognition')}</h2>
+    </div>
+    <div class="layout">
+      {
+        awards.length > 0 && (
+          <div data-reveal>
+            <h3 class="visually-hidden">{t('home.awards')}</h3>
+            <AwardList awards={awards} />
+          </div>
+        )
+      }
+      <div data-reveal>
+        <h3 class="visually-hidden">{t('home.press')}</h3>
+        <PressQuotes quotes={quotes.slice(0, 3)} slots={awards.length ? 2 : 3} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .layout {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+      align-items: start;
+    }
+  }
+</style>

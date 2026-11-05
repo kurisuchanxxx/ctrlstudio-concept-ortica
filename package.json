@@ -1,0 +1,21 @@
+{
+  "name": "studio-ortica-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/verify-dist.mjs",
+    "preview": "astro preview",
+    "verify": "node scripts/verify-dist.mjs",
+    "todos": "node scripts/todos.mjs",
+    "assets": "node scripts/assets.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "7.4.2"
+  }
+}

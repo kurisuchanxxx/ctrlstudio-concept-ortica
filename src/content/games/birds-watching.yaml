@@ -1,0 +1,52 @@
+# Birds Watching. Assets: src/assets/games/birds-watching/ (see ASSETS.md)
+
+title: Birds Watching
+genre: Post-apocalyptic horror
+featured: false
+
+# TODO(copy): logline and descriptions are drafts. Replace with the official Steam copy or validate.
+logline: The world has already ended. Someone still has to watch the birds.
+description:
+  - Birds Watching is a short post-apocalyptic horror game built around birdwatching. It takes the stillness of the pastime, the waiting, the looking, the noting down, and sets it in a world that has already ended.
+  - Like every Studio Ortica game, it is meant to be finished in one sitting. It launched on Steam, PlayStation 5 and Xbox Series on 20 August 2026.
+shortDescription: A short post-apocalyptic horror game about birdwatching, designed to be played in a single sitting.
+
+# TODO(verify): duration uses the studio's 30-60 minute range. Confirm for this game.
+duration: { min: 30, max: 60 }
+price: null # TODO(data): indicative price
+languages: [] # TODO(data): supported languages
+
+# TODO(copy): content warnings are a draft. Validate with the studio.
+contentWarnings:
+  - Psychological horror and sustained tension
+  - Post-apocalyptic setting and imagery
+  - Bird imagery throughout
+
+# TODO(verify): palette chosen by theme. Re-derive from the key art once available.
+palette: { base: '#15171a', accent: '#c9b48a', glow: '#5d6670' }
+artFocus: 50% 40%
+
+platforms:
+  - id: steam
+    release: 2026-08-20
+    url: null # TODO(link): Steam store page
+  - id: ps5
+    release: 2026-08-20
+    url: null # TODO(link): PlayStation Store page
+  - id: xbox-series
+    release: 2026-08-20
+    url: null # TODO(link): Xbox Store page
+  # TODO(verify): Switch version still to be announced.
+  - id: switch
+    release: null
+    url: null
+
+# TODO(verify): confirm Dark Product publishes this game's console versions.
+consolePublisher: dark-product
+
+trailer:
+  youtubeId: null # TODO(link): YouTube id of the official trailer
+
+awards: []
+pressQuotes: []
+pressKitUrl: null # TODO(data): press kit zip for this game

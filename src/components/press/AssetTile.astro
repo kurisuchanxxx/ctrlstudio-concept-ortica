@@ -1,0 +1,75 @@
+---
+// A press image: preview plus a link to the original file, or a slot with
+// the expected proportions when the asset is missing.
+import Art from '~/components/Art.astro';
+import { useTranslations } from '~/i18n';
+import type { ImageAsset } from '~/lib/content';
+
+interface Props {
+  asset: ImageAsset | null;
+  label: string;
+  alt: string;
+  ratio: string;
+  /** Logos sit on a neutral panel and are not cropped. */
+  contain?: boolean;
+}
+
+const { asset, label, alt, ratio, contain = false } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const originalHref = asset ? (typeof asset.src === 'string' ? asset.src : asset.src.src) : null;
+---
+
+<figure class:list={['tile', { 'tile--contain': contain }]}>
+  <Art
+    asset={asset}
+    alt={alt}
+    ratio={ratio}
+    slotLabel={label}
+    widths={[400, 640, 960]}
+    sizes="(min-width: 64rem) 25rem, (min-width: 40rem) 45vw, 100vw"
+  />
+  <figcaption>
+    <span class="label">{label}</span>
+    {
+      originalHref ? (
+        <a href={originalHref} download>
+          {t('press.downloadOriginal')}
+          {asset && (
+            <span class="dim">
+              {' '}
+              ({asset.width}×{asset.height})
+            </span>
+          )}
+        </a>
+      ) : (
+        <span class="pending">{t('pending.label')}</span>
+      )
+    }
+  </figcaption>
+</figure>
+
+<style>
+  .tile {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .tile--contain :global(.art) {
+    object-fit: contain;
+    padding: var(--space-5);
+    background: var(--color-surface);
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  .dim {
+    color: var(--color-muted);
+  }
+</style>

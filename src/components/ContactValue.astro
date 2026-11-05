@@ -1,0 +1,13 @@
+---
+// An email address as a mailto link, or a pending marker when missing.
+import { useTranslations } from '~/i18n';
+
+interface Props {
+  email: string | null;
+}
+
+const { email } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+---
+
+{email ? <a href={`mailto:${email}`}>{email}</a> : <span class="pending">{t('pending.label')}</span>}

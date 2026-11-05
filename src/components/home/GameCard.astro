@@ -1,0 +1,140 @@
+---
+// One game in the home grid. The whole card links to the game page, where
+// the store buttons are: any game reaches Steam in two clicks.
+import Art from '~/components/Art.astro';
+import { entryLabel, stateLabel } from '~/components/labels';
+import { useTranslations } from '~/i18n';
+import { formatDuration, type Game } from '~/lib/content';
+
+interface Props {
+  game: Game;
+  headingLevel?: 'h3' | 'h2';
+}
+
+const { game, headingLevel: Heading = 'h3' } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+---
+
+<article class="card" style={`--color-glow:${game.palette.glow};--card-accent:${game.palette.accent}`} data-reveal>
+  <div class="card__media">
+    <Art
+      asset={game.assets.card}
+      alt=""
+      ratio="2/3"
+      slotLabel={t('slot.card')}
+      widths={[300, 450, 600, 900, 1200]}
+      sizes="(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 40vw"
+    />
+  </div>
+  <div class="card__body">
+    <p class="label card__meta">
+      <span>{entryLabel(t, game)}</span>
+      <span class="card__state">{stateLabel(t, game, Astro.currentLocale)}</span>
+    </p>
+    <Heading class="card__title">
+      <a class="card__link" href={game.href}>{game.title}</a>
+    </Heading>
+    {game.genre && <p class="card__genre">{game.genre}</p>}
+    <dl class="card__facts">
+      <div>
+        <dt class="label">{t('facts.duration')}</dt>
+        <dd>{game.duration ? formatDuration(game.duration) : <span class="pending">{t('pending.label')}</span>}</dd>
+      </div>
+      <div>
+        <dt class="label">{t('facts.platforms')}</dt>
+        <dd>{game.platforms.map((p) => p.short).join(' · ')}</dd>
+      </div>
+    </dl>
+  </div>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: start;
+  }
+
+  .card__media {
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .card__media :global(.art),
+  .card__media :global(.slot) {
+    transition: opacity var(--dur-slow) var(--ease);
+  }
+
+  .card:hover .card__media :global(.art) {
+    opacity: 0.82;
+  }
+
+  .card__body {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25em 0.9em;
+  }
+
+  .card__state {
+    color: var(--card-accent);
+  }
+
+  .card__title {
+    font-size: var(--text-display-s);
+    line-height: 1;
+  }
+
+  .card__link {
+    text-decoration: none;
+  }
+
+  .card__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .card__link:focus-visible {
+    outline: none;
+  }
+
+  .card:has(.card__link:focus-visible) {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 6px;
+  }
+
+  .card:hover .card__link {
+    color: var(--card-accent);
+  }
+
+  .card__genre {
+    color: var(--color-muted);
+  }
+
+  .card__facts {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-line);
+    font-size: var(--text-sm);
+  }
+
+  .card__facts dt {
+    font-size: var(--text-2xs);
+  }
+
+  @media (min-width: 40rem) {
+    .card {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+  }
+</style>

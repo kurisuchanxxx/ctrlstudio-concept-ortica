@@ -1,0 +1,244 @@
+---
+// Per-game press kit, generated from the same content as the game page.
+import Base from '~/layouts/Base.astro';
+import AwardList from '~/components/AwardList.astro';
+import ContactValue from '~/components/ContactValue.astro';
+import PressQuotes from '~/components/PressQuotes.astro';
+import GameFacts from '~/components/game/GameFacts.astro';
+import TrailerFacade from '~/components/game/TrailerFacade.astro';
+import AssetTile from '~/components/press/AssetTile.astro';
+import PressDownload from '~/components/press/PressDownload.astro';
+import { useTranslations } from '~/i18n';
+import { getGames, getStudio, type Game } from '~/lib/content';
+
+export async function getStaticPaths() {
+  const games = await getGames();
+  return games.map((game) => ({ params: { slug: game.slug }, props: { game } }));
+}
+
+interface Props {
+  game: Game;
+}
+
+const { game } = Astro.props;
+const studio = await getStudio();
+const t = useTranslations(Astro.currentLocale);
+const shots = game.assets.screenshots;
+---
+
+<Base
+  title={`${t('press.title')}: ${game.title}`}
+  description={game.shortDescription}
+  palette={game.palette}
+  ogImage={game.assets.keyArt}
+>
+  <div class="container page">
+    <header class="intro">
+      <p class="label crumbs">
+        <a href="/press/">{t('press.backToKit')}</a>
+        <span aria-hidden="true">/</span>
+        <span>{game.title}</span>
+      </p>
+      <h1 class="title">{game.title}</h1>
+      <p class="label">{t('press.title')}</p>
+      <div class="btn-row">
+        <PressDownload href={game.pressKitUrl} />
+        <a class="btn btn--ghost" href={game.href}>{t('cta.aboutGame')}</a>
+      </div>
+    </header>
+
+    <div class="cols">
+      <section aria-labelledby="factsheet-title">
+        <h2 id="factsheet-title" class="label heading">{t('press.factsheetGame')}</h2>
+        <GameFacts game={game} studio={studio} variant="press" />
+      </section>
+      <div class="texts">
+        <section aria-labelledby="short-title">
+          <h2 id="short-title" class="label heading">{t('press.shortDescription')}</h2>
+          <p class="short">{game.shortDescription}</p>
+        </section>
+        <section aria-labelledby="long-title">
+          <h2 id="long-title" class="label heading">{t('press.longDescription')}</h2>
+          <div class="prose">
+            {game.description.map((p) => <p>{p}</p>)}
+          </div>
+        </section>
+        {
+          game.contentWarnings.length > 0 && (
+            <section aria-labelledby="cw-title">
+              <h2 id="cw-title" class="label heading">
+                {t('game.contentWarning')}
+              </h2>
+              <ul role="list" class="plain">
+                {game.contentWarnings.map((w) => (
+                  <li>{w}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+      </div>
+    </div>
+
+    <TrailerFacade game={game} />
+
+    <section aria-labelledby="images-title" class="block">
+      <h2 id="images-title" class="label heading">{t('press.images')}</h2>
+      <div class="tiles">
+        <AssetTile asset={game.assets.keyArt} label={t('slot.keyArt')} alt={`${game.title} key art`} ratio="16/9" />
+        <AssetTile
+          asset={game.assets.logo}
+          label={t('slot.logo')}
+          alt={`${game.title} logo`}
+          ratio="16/9"
+          contain
+        />
+        <AssetTile asset={game.assets.card} label={t('slot.card')} alt={`${game.title} capsule art`} ratio="2/3" />
+        {
+          shots.length > 0
+            ? shots.map((shot, i) => (
+                <AssetTile
+                  asset={shot}
+                  label={t('slot.screenshot', { n: String(i + 1).padStart(2, '0') })}
+                  alt={t('gallery.alt', { title: game.title, n: i + 1 })}
+                  ratio="16/9"
+                />
+              ))
+            : [1, 2].map((n) => (
+                <AssetTile
+                  asset={null}
+                  label={t('slot.screenshot', { n: String(n).padStart(2, '0') })}
+                  alt=""
+                  ratio="16/9"
+                />
+              ))
+        }
+      </div>
+    </section>
+
+    {
+      game.awards.length > 0 && (
+        <section aria-labelledby="awards-title" class="block">
+          <h2 id="awards-title" class="label heading">
+            {t('press.awards')}
+          </h2>
+          <AwardList awards={game.awards.map((award) => ({ award, game: null }))} />
+        </section>
+      )
+    }
+
+    <section aria-labelledby="quotes-title" class="block">
+      <h2 id="quotes-title" class="label heading">{t('press.quotes')}</h2>
+      <PressQuotes quotes={game.pressQuotes} slots={2} />
+    </section>
+
+    <section aria-labelledby="credits-title" class="block cols">
+      <div>
+        <h2 id="credits-title" class="label heading">{t('press.credits')}</h2>
+        <ul role="list" class="plain">
+          {
+            studio.team.map((m) => (
+              <li>
+                {m.name}
+                {m.role && <span class="muted"> · {m.role}</span>}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <h2 class="label heading">{t('press.contact')}</h2>
+        <dl class="plain">
+          <div>
+            <dt class="label">{t('facts.pressContact')}</dt>
+            <dd><ContactValue email={studio.contacts.press} /></dd>
+          </div>
+          <div>
+            <dt class="label">{t('facts.businessContact')}</dt>
+            <dd><ContactValue email={studio.contacts.business} /></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .page {
+    padding-top: calc(var(--space-10) + var(--space-5));
+    padding-bottom: var(--space-10);
+    display: grid;
+    gap: var(--space-9);
+  }
+
+  .intro {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 52rem;
+  }
+
+  .crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em;
+  }
+
+  .title {
+    font-size: var(--text-display-l);
+    line-height: 0.92;
+  }
+
+  .heading {
+    margin-bottom: var(--space-5);
+  }
+
+  .cols {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 64rem) {
+    .cols {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: var(--space-9);
+    }
+  }
+
+  .texts {
+    display: grid;
+    gap: var(--space-8);
+    align-content: start;
+  }
+
+  .short {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    line-height: 1.3;
+  }
+
+  .plain {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+  }
+
+  .plain dd {
+    margin-top: var(--space-1);
+  }
+
+  .muted {
+    color: var(--color-muted);
+  }
+
+  .tiles {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 48rem) {
+    .tiles {
+      grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+      align-items: start;
+    }
+  }
+</style>

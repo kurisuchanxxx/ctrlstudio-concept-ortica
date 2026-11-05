@@ -1,0 +1,72 @@
+# Studio data. Feeds the home page, the footer and the press kit.
+# Facts come from press coverage collected in docs/brief.md. Draft text is
+# flagged in the comments next to it, to be validated by Studio Ortica.
+
+name: Studio Ortica
+founded: 2025
+location:
+  city: Turin
+  country: Italy
+engine: Godot
+
+# TODO(copy): one-line formula under the studio name in the home hero. Draft.
+formula: Short, narrative horror games you finish in one sitting. Each one takes a quiet, patient pastime and turns it against you.
+
+# TODO(copy): manifesto, 2-3 lines. Draft built only on the studio's stated signature.
+manifesto:
+  - We make short, narrative horror games, meant to be played in a single sitting of thirty to sixty minutes.
+  - Each one starts from something slow and patient. Fishing. Watching birds. Digging.
+  - Then we wait, and let the quiet turn.
+
+# TODO(copy): press kit descriptions. Drafts, to be validated or replaced.
+shortDescription: Studio Ortica is an independent game studio based in Turin, Italy, making short narrative horror games designed to be played in a single sitting of 30 to 60 minutes.
+longDescription:
+  - Studio Ortica is an independent game studio based in Turin, Italy, founded in 2025 by developers coming from AA productions. The team works in Godot.
+  - Its games share one signature. Each takes a quiet activity built on patient observation, such as fishing, birdwatching or excavation, and slowly turns it into horror. They are short and narrative, meant to be finished in one sitting of 30 to 60 minutes.
+  # TODO(verify): confirm Dark Product publishes the console versions of every game.
+  - Its first game, Loan Shark, a fishing horror about an impossible debt, was a finalist for Best Italian Debut Game at the Italian Video Game Awards 2026. Console versions are published by Dark Product, based in Busan, South Korea.
+
+team:
+  # TODO(data): roles are not known. Add them, or leave null to hide the role.
+  - name: Nicola Dau
+  - name: Luca Folino
+  - name: Samuele Petrucci
+  # TODO(verify): only one source lists Tremotino as part of the team.
+  - name: Tremotino
+    verified: false
+
+contacts:
+  press: null # TODO(data): official press email
+  business: null # TODO(data): official business email
+
+# TODO(link): official URLs for every channel. Never build them by guessing handles.
+channels:
+  - { id: substack, label: Substack, url: null }
+  - { id: steam, label: Steam, url: null }
+  - { id: x, label: X, url: null }
+  - { id: bluesky, label: Bluesky, url: null }
+  - { id: youtube, label: YouTube, url: null }
+  - { id: instagram, label: Instagram, url: null }
+  - { id: tiktok, label: TikTok, url: null }
+  - { id: discord, label: Discord, url: null }
+
+# The newsletter CTA points to the Substack channel above.
+newsletter:
+  # TODO(copy): newsletter block copy. Draft.
+  title: Follow the work as it happens
+  text: Studio Ortica writes about development on Substack. Notes from the studio, new projects and release news, in your inbox.
+  cta: Read the dev log on Substack
+
+publishers:
+  - id: dark-product
+    name: Dark Product
+    role: Console publisher
+    city: Busan
+    country: South Korea
+    url: null # TODO(link): Dark Product website
+
+# Verified press quotes about the studio. Each needs a real source URL.
+pressQuotes: []
+
+# TODO(data): studio press kit zip (logos, team photo). See ASSETS.md.
+pressKitUrl: null

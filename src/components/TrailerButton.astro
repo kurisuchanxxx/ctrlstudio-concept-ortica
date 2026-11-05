@@ -1,0 +1,38 @@
+---
+// Watch trailer button. Never loads anything from YouTube by itself.
+// mode="dialog": opens the modal player (home, needs <TrailerDialog />).
+// mode="jump": goes to the #trailer facade on the game page and starts it.
+import { useTranslations } from '~/i18n';
+import type { Game } from '~/lib/content';
+
+interface Props {
+  game: Game;
+  mode: 'dialog' | 'jump';
+}
+
+const { game, mode } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const id = game.trailer.youtubeId;
+---
+
+{
+  mode === 'jump' ? (
+    <a class="btn btn--ghost" href="#trailer" data-yt-jump>
+      {t('cta.watchTrailer')}
+    </a>
+  ) : id ? (
+    <a
+      class="btn btn--ghost"
+      href={`https://www.youtube.com/watch?v=${id}`}
+      data-yt-open={id}
+      data-yt-title={t('trailer.iframeTitle', { title: game.title })}
+    >
+      {t('cta.watchTrailer')}
+    </a>
+  ) : (
+    <span class="btn btn--pending">
+      {t('cta.watchTrailer')}
+      <span class="btn__note">{t('pending.link')}</span>
+    </span>
+  )
+}

@@ -1,0 +1,74 @@
+---
+// Newsletter: external link to the studio's Substack. No form of our own.
+import { useTranslations } from '~/i18n';
+import type { Studio } from '~/lib/content';
+
+interface Props {
+  studio: Studio;
+}
+
+const { studio } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const { title, text, cta, url } = studio.newsletter;
+---
+
+<section class="section newsletter" aria-labelledby="newsletter-title">
+  <div class="container inner" data-reveal>
+    <div>
+      <h2 id="newsletter-title" class="title">{title}</h2>
+    </div>
+    <div class="body">
+      <p class="text">{text}</p>
+      <div class="btn-row">
+        {
+          url ? (
+            <a class="btn btn--primary" href={url}>
+              {cta}
+            </a>
+          ) : (
+            <span class="btn btn--pending">
+              {cta}
+              <span class="btn__note">{t('pending.link')}</span>
+            </span>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .newsletter {
+    background:
+      radial-gradient(80% 120% at 85% 0%, color-mix(in srgb, var(--color-glow) 45%, transparent), transparent 70%),
+      var(--color-surface);
+  }
+
+  .inner {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .title {
+    font-size: var(--text-display-m);
+    max-width: 14ch;
+  }
+
+  .body {
+    display: grid;
+    gap: var(--space-6);
+    align-content: end;
+  }
+
+  .text {
+    max-width: 44ch;
+    color: var(--color-text);
+  }
+
+  @media (min-width: 64rem) {
+    .inner {
+      grid-template-columns: 1.2fr 1fr;
+      align-items: end;
+    }
+  }
+</style>

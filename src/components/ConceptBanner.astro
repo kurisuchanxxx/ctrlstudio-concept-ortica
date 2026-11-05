@@ -1,0 +1,57 @@
+---
+// Always visible, not dismissible. Rendered only in concept mode.
+// scripts/verify-dist.mjs checks its id, exact text and link on every page.
+import { CONCEPT, CONCEPT_MODE } from '~/config/concept.mjs';
+import { useTranslations } from '~/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+{
+  CONCEPT_MODE && (
+    <aside id={CONCEPT.bannerId} class="concept-banner" aria-label={t('concept.notice')}>
+      <p>
+        <span>{CONCEPT.bannerText}</span>
+        <span aria-hidden="true" class="sep">·</span>
+        <a href={CONCEPT.authorUrl}>{CONCEPT.authorUrlLabel}</a>
+      </p>
+    </aside>
+  )
+}
+
+<style>
+  .concept-banner {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-banner);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--banner-h);
+    padding: 0.35rem var(--gutter);
+    background: #e6e1d8;
+    color: #0e0d0c;
+    font-size: var(--text-xs);
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+
+  .sep {
+    margin-inline: 0.5em;
+  }
+
+  a {
+    font-weight: 600;
+    color: inherit;
+  }
+
+  a:hover {
+    color: inherit;
+    text-decoration-thickness: 2px;
+  }
+
+  a:focus-visible {
+    outline-color: #0e0d0c;
+  }
+</style>

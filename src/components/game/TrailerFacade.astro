@@ -1,0 +1,146 @@
+---
+// Trailer facade: local poster image + plain link to the video. The
+// youtube-nocookie iframe is created only on click (src/scripts/youtube.ts).
+// The poster is the local trailer-frame asset, never YouTube's thumbnail.
+import Art from '~/components/Art.astro';
+import { useTranslations } from '~/i18n';
+import type { Game } from '~/lib/content';
+
+interface Props {
+  game: Game;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { game, headingLevel: Heading = 'h2' } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const id = game.trailer.youtubeId;
+---
+
+<section id="trailer" class="trailer" aria-labelledby={`trailer-title-${game.slug}`}>
+  <Heading id={`trailer-title-${game.slug}`} class="label heading">{t('trailer.title')}</Heading>
+  <div class="frame">
+    {
+      id ? (
+        <a
+          class="facade"
+          href={`https://www.youtube.com/watch?v=${id}`}
+          data-yt-facade={id}
+          data-yt-title={t('trailer.iframeTitle', { title: game.title })}
+        >
+          <Art
+            asset={game.trailer.poster}
+            alt=""
+            ratio="16/9"
+            slotLabel={t('slot.trailerFrame')}
+            widths={[640, 960, 1280, 1920]}
+            sizes="(min-width: 78rem) 78rem, 100vw"
+          />
+          <span class="play">
+            <span class="play__icon" aria-hidden="true" />
+            <span>{t('trailer.play')}</span>
+            <span class="visually-hidden">: {game.title}</span>
+          </span>
+        </a>
+      ) : (
+        <div class="facade facade--pending">
+          <Art
+            asset={game.trailer.poster}
+            alt=""
+            ratio="16/9"
+            slotLabel={t('slot.trailerFrame')}
+            widths={[640, 960, 1280, 1920]}
+            sizes="(min-width: 78rem) 78rem, 100vw"
+          />
+          <span class="play play--pending">
+            <span class="play__icon" aria-hidden="true" />
+            <span>{t('trailer.pending')}</span>
+          </span>
+        </div>
+      )
+    }
+  </div>
+  {id && <p class="note">{t('trailer.privacy')}</p>}
+</section>
+
+<script>
+  import { initFacades } from '~/scripts/youtube';
+  initFacades();
+</script>
+
+<style>
+  .heading {
+    margin-bottom: var(--space-5);
+  }
+
+  .frame {
+    position: relative;
+    background: var(--color-surface);
+  }
+
+  .facade {
+    position: relative;
+    display: block;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .facade::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, color-mix(in srgb, var(--color-bg) 75%, transparent), transparent 55%);
+    pointer-events: none;
+  }
+
+  .play {
+    position: absolute;
+    left: var(--space-5);
+    bottom: var(--space-5);
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-5) var(--space-3) var(--space-3);
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background-color var(--dur) var(--ease);
+  }
+
+  .facade:hover .play {
+    background: color-mix(in srgb, var(--color-accent), #fff 18%);
+  }
+
+  .play__icon {
+    width: 2rem;
+    height: 2rem;
+    background: currentColor;
+    clip-path: polygon(34% 24%, 34% 76%, 76% 50%);
+  }
+
+  .play--pending {
+    border: 1px dashed var(--color-line-strong);
+    background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+    color: var(--color-muted);
+  }
+
+  .facade--pending .play__icon {
+    opacity: 0.5;
+  }
+
+  /* The slot label moves to the top so it never sits under the play badge. */
+  .frame :global(.slot__label) {
+    top: 14px;
+    bottom: auto;
+    left: 32px;
+  }
+
+  .note {
+    margin-top: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+</style>

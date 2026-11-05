@@ -1,0 +1,60 @@
+# Loan Shark. Assets: src/assets/games/loan-shark/ (see ASSETS.md)
+
+title: Loan Shark
+genre: Fishing horror
+featured: false
+
+# TODO(copy): logline and descriptions are drafts. Replace with the official Steam copy or validate.
+logline: Out on the water, a debt that can never be paid keeps pulling at the line.
+description:
+  - Loan Shark is a short fishing horror game about an impossible debt. It takes the slow, patient rhythm of fishing, casting, waiting, reeling in, and lets the weight of what you owe seep into every quiet moment on the water.
+  - Like every Studio Ortica game, it is designed to be played in a single sitting. It was the studio's first release, on Steam in August 2025 and on Xbox Series in January 2026, and a finalist for Best Italian Debut Game at the Italian Video Game Awards 2026.
+shortDescription: A short fishing horror game about an impossible debt, designed to be played in a single sitting.
+
+# TODO(verify): duration uses the studio's 30-60 minute range. Confirm for this game.
+duration: { min: 30, max: 60 }
+price: null # TODO(data): indicative price
+languages: [] # TODO(data): supported languages
+
+# TODO(copy): content warnings are a draft. Validate with the studio.
+contentWarnings:
+  - Psychological horror and sustained tension
+  - Themes of debt and financial pressure
+  - Dark, deep water
+
+# TODO(verify): palette chosen by theme. Re-derive from the key art once available.
+palette: { base: '#0f1a1c', accent: '#7fb3ad', glow: '#2f5d62' }
+artFocus: 50% 45%
+
+platforms:
+  - id: steam
+    release: 2025-08
+    url: null # TODO(link): Steam store page
+  - id: xbox-series
+    release: 2026-01
+    url: null # TODO(link): Xbox Store page
+  # TODO(verify): PlayStation version announced, release date not known.
+  - id: playstation
+    release: null
+    url: null
+  # TODO(verify): listed on the Nintendo eShop according to one source. Confirm and add the date.
+  - id: switch
+    release: null
+    url: null
+
+# TODO(verify): confirm Dark Product publishes this game's console versions.
+consolePublisher: dark-product
+
+trailer:
+  youtubeId: null # TODO(link): YouTube id of the official trailer
+
+awards:
+  - result: Finalist
+    category: Best Italian Debut Game
+    event: Italian Video Game Awards 2026
+    url: null # TODO(link): IVGA 2026 finalists page
+
+# Verified press quotes only, each with its source URL.
+pressQuotes: []
+
+pressKitUrl: null # TODO(data): press kit zip for this game

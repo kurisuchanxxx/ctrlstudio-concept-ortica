@@ -1,0 +1,39 @@
+---
+// Modal trailer player. The iframe is created only on click and removed on
+// close (src/scripts/youtube.ts).
+import { useTranslations } from '~/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<dialog class="trailer-dialog" data-yt-dialog aria-label={t('trailer.title')}>
+  <div class="trailer-dialog__bar">
+    <button type="button" class="btn btn--ghost" data-dialog-close>{t('trailer.close')}</button>
+  </div>
+  <div class="trailer-dialog__stage" data-yt-stage></div>
+</dialog>
+
+<script>
+  import { initTrailerDialog } from '~/scripts/youtube';
+  initTrailerDialog();
+</script>
+
+<style>
+  .trailer-dialog {
+    width: min(72rem, 100vw - 2 * var(--gutter));
+    max-width: none;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .trailer-dialog::backdrop {
+    background: rgb(var(--color-scrim) / 0.92);
+  }
+
+  .trailer-dialog__bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--space-3);
+  }
+</style>

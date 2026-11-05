@@ -1,0 +1,80 @@
+---
+// Neutral placeholder for a missing image, at the proportions of the real
+// asset. Tinted with the game palette when available. Decorative: the label
+// is for sighted reviewers, the surrounding content carries the meaning.
+interface Props {
+  ratio: string;
+  label: string;
+  /** Fill the parent instead of using the ratio (hero backgrounds). */
+  fill?: boolean;
+  class?: string;
+}
+
+const { ratio, label, fill = false, class: className } = Astro.props;
+---
+
+<div
+  class:list={['slot', { 'slot--fill': fill }, className]}
+  style={fill ? undefined : `aspect-ratio: ${ratio}`}
+  aria-hidden="true"
+>
+  <span class="slot__label">{label} · {ratio.replace(/\s/g, '').replace('/', ':')}</span>
+</div>
+
+<style>
+  .slot {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 80% at 70% 25%, color-mix(in srgb, var(--color-glow) 55%, transparent), transparent 70%),
+      linear-gradient(180deg, var(--color-surface-2), var(--color-bg));
+  }
+
+  .slot--fill {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+  }
+
+  /* Crop marks in two corners. */
+  .slot::before,
+  .slot::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: var(--color-line-strong);
+    border-style: solid;
+  }
+
+  .slot::before {
+    top: 10px;
+    left: 10px;
+    border-width: 1px 0 0 1px;
+  }
+
+  .slot::after {
+    right: 10px;
+    bottom: 10px;
+    border-width: 0 1px 1px 0;
+  }
+
+  .slot__label {
+    position: absolute;
+    left: 14px;
+    bottom: 12px;
+    font-size: var(--text-2xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-subtle);
+  }
+
+  .slot--fill .slot__label {
+    left: auto;
+    right: var(--gutter);
+    bottom: auto;
+    top: calc(var(--space-9) + var(--space-4));
+  }
+</style>
