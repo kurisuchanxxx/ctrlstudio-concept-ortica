@@ -14,15 +14,15 @@ formula: Short, narrative horror games you finish in one sitting. Each one takes
 
 # TODO(copy): manifesto, 2-3 lines. Draft built only on the studio's stated signature.
 manifesto:
-  - We make short, narrative horror games, meant to be played in a single sitting of thirty to sixty minutes.
+  - We make short, narrative horror games, meant to be played in a single sitting.
   - Each one starts from something slow and patient. Fishing. Watching birds. Digging.
   - Then we wait, and let the quiet turn.
 
 # TODO(copy): press kit descriptions. Drafts, to be validated or replaced.
-shortDescription: Studio Ortica is an independent game studio based in Turin, Italy, making short narrative horror games designed to be played in a single sitting of 30 to 60 minutes.
+shortDescription: Studio Ortica is an independent game studio based in Turin, Italy, making short narrative horror games designed to be played in a single sitting.
 longDescription:
   - Studio Ortica is an independent game studio based in Turin, Italy, founded in 2025 by developers coming from AA productions. The team works in Godot.
-  - Its games share one signature. Each takes a quiet activity built on patient observation, such as fishing, birdwatching or excavation, and slowly turns it into horror. They are short and narrative, meant to be finished in one sitting of 30 to 60 minutes.
+  - Its games share one signature. Each takes a quiet activity built on patient observation, such as fishing, birdwatching or excavation, and slowly turns it into horror. They are short and narrative, meant to be finished in one sitting, from about thirty minutes to a couple of hours.
   # TODO(verify): confirm Dark Product publishes the console versions of every game.
   - Its first game, Loan Shark, a fishing horror about an impossible debt, was a finalist for Best Italian Debut Game at the Italian Video Game Awards 2026. Console versions are published by Dark Product, based in Busan, South Korea.
 

@@ -45,30 +45,18 @@ I link alle pagine Steam vanno nei file dei giochi (`platforms[].url`). Non vann
 
 ## Checklist da scaricare
 
-Spunta man mano, oppure rilancia `npm run assets` per vedere lo stato attuale.
+Stato al 6 novembre 2026. Rilancia `npm run assets` per lo stato aggiornato.
 
-### Loan Shark: `src/assets/games/loan-shark/`
-- [ ] key-art (16:9, almeno 2560 x 1440)
-- [ ] card (2:3, almeno 600 x 900)
-- [ ] logo (PNG trasparente)
-- [ ] trailer-frame (16:9, almeno 1280 x 720)
-- [ ] screenshot-01 ... (16:9, 1920 x 1080)
-- [ ] press-kit.zip oppure `pressKitUrl`
+Key art, capsule e screenshot dei tre giochi vengono dalle pagine Steam ufficiali, tramite l'API pubblica dello store:
+- `key-art` è la library hero di Steam (3840 x 1240, senza logo). È più bassa del minimo di 1440 px: va bene, ma se lo studio ha la key art originale in alta risoluzione conviene sostituirla;
+- `card` è la library capsule (600 x 900);
+- `screenshot-01` ... `-06` sono i primi sei screenshot della pagina Steam.
 
-### Birds Watching: `src/assets/games/birds-watching/`
-- [ ] key-art
-- [ ] card
-- [ ] logo
-- [ ] trailer-frame
-- [ ] screenshot-01 ...
-- [ ] press-kit.zip oppure `pressKitUrl`
+Mancano ancora:
 
-### The Old Flesh of Nuraga: `src/assets/games/the-old-flesh-of-nuraga/`
-- [ ] key-art
-- [ ] card
-- [ ] logo
-- [ ] trailer-frame
-- [ ] screenshot-01 ...
+### Per ogni gioco (Loan Shark, Birds Watching, The Old Flesh of Nuraga)
+- [ ] logo (PNG trasparente): Steam non lo espone nell'API pubblica, va chiesto allo studio
+- [ ] trailer-frame (16:9, almeno 1280 x 720): fino ad allora la copertina del trailer usa il primo screenshot
 - [ ] press-kit.zip oppure `pressKitUrl`
 
 ### Studio: `src/assets/studio/`
@@ -79,4 +67,4 @@ Spunta man mano, oppure rilancia `npm run assets` per vedere lo stato attuale.
 ## Dopo aver aggiunto gli asset
 
 - Rivedi `palette` e `artFocus` di ogni gioco sulla key art vera. Le palette attuali sono scelte sul tema del gioco e hanno un `TODO(verify)`.
-- Rilancia Lighthouse mobile: con i placeholder Performance e Accessibilità sono a 100, con immagini sintetiche a dimensione reale restano a 100.
+- Rilancia Lighthouse mobile. Con le immagini Steam attuali: Performance 99-100, Accessibilità 100, pagine tra 140 e 250 KiB.

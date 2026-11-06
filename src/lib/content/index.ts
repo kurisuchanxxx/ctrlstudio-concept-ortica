@@ -73,7 +73,11 @@ export function getGames(): Promise<Game[]> {
         artFocus: raw.artFocus,
         ...core,
         consolePublisher: publisher ?? null,
-        trailer: { youtubeId: raw.trailer.youtubeId, poster: assets.trailerFrame },
+        // Poster: the dedicated trailer frame, else the first screenshot, else the key art.
+        trailer: {
+          youtubeId: raw.trailer.youtubeId,
+          poster: assets.trailerFrame ?? assets.screenshots[0] ?? assets.keyArt,
+        },
         awards: raw.awards,
         pressQuotes: raw.pressQuotes.map((q) => ({ ...q, game: raw.title })),
         pressKitUrl: raw.pressKitUrl ?? bundledPressKit(`games/${raw.slug}`),

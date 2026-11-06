@@ -57,8 +57,10 @@ async function check(dir, spec) {
       const wh = await size(join(dir, f));
       if (!wh) continue;
       const [w, h] = wh;
-      if (s.min && (w < s.min[0] || h < s.min[1])) notes.push(`${f} is ${w}x${h}, min ${s.min[0]}x${s.min[1]}`);
-      if (s.minLong && Math.max(w, h) < s.minLong) notes.push(`${f} is ${w}x${h}, long side min ${s.minLong}`);
+      // 1% tolerance: Steam screenshots are often 1919 px wide.
+      const short = (v, min) => v < min * 0.99;
+      if (s.min && (short(w, s.min[0]) || short(h, s.min[1]))) notes.push(`${f} is ${w}x${h}, min ${s.min[0]}x${s.min[1]}`);
+      if (s.minLong && short(Math.max(w, h), s.minLong)) notes.push(`${f} is ${w}x${h}, long side min ${s.minLong}`);
     }
     rows.push({ ...s, matches, notes });
   }

@@ -1,39 +1,43 @@
 # The Old Flesh of Nuraga. Assets: src/assets/games/the-old-flesh-of-nuraga/ (see ASSETS.md)
+# Copy, duration, languages, price and content notes come from the official
+# Steam page (app 4588930, developer Studio Ortica), read on 6 Nov 2026.
 
 title: The Old Flesh of Nuraga
-genre: null # TODO(data): genre line, not in our sources
+genre: Cosmic horror
 featured: false
 
-# TODO(copy): logline and descriptions are drafts with no plot facts behind them. Replace with the official Steam copy.
-logline: Some old things are better left in the ground.
+# Official Steam short description.
+logline: Your Grandpa descends into madness in a family cosmic horror. Dig cursed relics, meet eldritch beings, and awaken a forgotten God.
+# Official Steam copy ("About this game").
 description:
-  - The Old Flesh of Nuraga is the third game from Studio Ortica, a short narrative horror experience designed to be played in a single sitting.
-  - It follows the studio's signature, a quiet and patient activity slowly turned into something you would rather not look at too closely. It launched on Steam on 27 August 2026.
-shortDescription: A short narrative horror game from Studio Ortica, designed to be played in a single sitting.
+  - On the barren island of Nuraga, you're stranded in the desert with your Grandpa. Your bull died of exhaustion, and Grandpa is too tired to march. Luckily, you've found shelter in ancient ruins where Grandpa can rest and you can look for food beneath the sand.
+  - But when instead of desert potatoes you dig up ancient relics, Grandpa starts acting strange. He pushes you to dig deeper and deeper, heedless of the eerie atmosphere that permeates the ruins and the mysterious events happening around you.
+shortDescription: A short narrative psychological horror game with treasure hunting, branching dialogues and multiple endings, 1 to 2 hours long.
 
-# TODO(verify): duration uses the studio's 30-60 minute range. Confirm for this game.
-duration: { min: 30, max: 60 }
-price: null # TODO(data): indicative price
-languages: [] # TODO(data): supported languages
+# Steam: "1 to 2 hours".
+duration: { min: 60, max: 120 }
+# Steam Italy price on 6 Nov 2026. Changes with region and sales.
+price: €3.99
+languages: [English, Italian]
 
-# TODO(copy): content warnings are a draft. Validate with the studio.
+# From the content notes on the Steam page.
 contentWarnings:
-  - Psychological horror and sustained tension
-  - Disturbing imagery
+  - Mild body horror in the form of physical mutation
+  - References to madness and psychological anguish
 
-# TODO(verify): palette chosen by theme. Re-derive from the key art once available.
-palette: { base: '#1a1412', accent: '#c98f72', glow: '#6b3b2e' }
-artFocus: 50% 50%
+# Palette taken from the purple desert key art and the red title.
+palette: { base: '#150c16', accent: '#e07a62', glow: '#5a2a52' }
+artFocus: 50% 62%
 
 platforms:
   - id: steam
     release: 2026-08-27
-    url: null # TODO(link): Steam store page
+    url: https://store.steampowered.com/app/4588930/
 
 consolePublisher: null
 
 trailer:
-  youtubeId: null # TODO(link): YouTube id of the official trailer
+  youtubeId: null # TODO(link): YouTube id of the official trailer (Steam hosts its own copy)
 
 awards: []
 pressQuotes: []

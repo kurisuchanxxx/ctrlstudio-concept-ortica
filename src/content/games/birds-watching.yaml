@@ -1,35 +1,40 @@
 # Birds Watching. Assets: src/assets/games/birds-watching/ (see ASSETS.md)
+# Copy, duration, languages and price come from the official Steam page
+# (app 3979870, developer Studio Ortica), read on 6 Nov 2026.
 
 title: Birds Watching
-genre: Post-apocalyptic horror
+genre: Psychological horror
 featured: false
 
-# TODO(copy): logline and descriptions are drafts. Replace with the official Steam copy or validate.
-logline: The world has already ended. Someone still has to watch the birds.
+# Adapted from the official Steam copy.
+logline: An endless fire destroyed the world. You are the last human being, and the only ones who can save you are the birds.
+# Official Steam copy ("About this game").
 description:
-  - Birds Watching is a short post-apocalyptic horror game built around birdwatching. It takes the stillness of the pastime, the waiting, the looking, the noting down, and sets it in a world that has already ended.
-  - Like every Studio Ortica game, it is meant to be finished in one sitting. It launched on Steam, PlayStation 5 and Xbox Series on 20 August 2026.
-shortDescription: A short post-apocalyptic horror game about birdwatching, designed to be played in a single sitting.
+  - An endless global fire destroyed the world, and you are now alone, the last human being. You survive on the top of a mountain, the only place still untouched by the flames, and your only occupation is watching with your binoculars the wild birds escaped up there with you.
+  - It is a peaceful, isolated, desperate life. Until you are not alone anymore, and the only ones who can save you are the birds; but they are picky. Satisfy them, or lose everything. Be honest. Be ruthless. Be careful.
+shortDescription: A short psychological horror game about bird watching, around 60 minutes long, set on the last mountain untouched by an endless global fire.
 
-# TODO(verify): duration uses the studio's 30-60 minute range. Confirm for this game.
-duration: { min: 30, max: 60 }
-price: null # TODO(data): indicative price
-languages: [] # TODO(data): supported languages
+# Steam: "~60 minutes".
+duration: { min: 60, max: 60 }
+# Steam Italy price on 6 Nov 2026. Changes with region and sales.
+price: €4.99
+languages: [English (full audio), Italian (full audio)]
 
-# TODO(copy): content warnings are a draft. Validate with the studio.
+# TODO(copy): Steam lists no content notes for this game. Draft, validate with the studio.
 contentWarnings:
   - Psychological horror and sustained tension
-  - Post-apocalyptic setting and imagery
+  - A world destroyed by fire, isolation
   - Bird imagery throughout
 
-# TODO(verify): palette chosen by theme. Re-derive from the key art once available.
-palette: { base: '#15171a', accent: '#c9b48a', glow: '#5d6670' }
-artFocus: 50% 40%
+# Palette taken from the forest key art and the ochre capsule.
+palette: { base: '#14120b', accent: '#d4b04a', glow: '#5b4a1e' }
+artFocus: 62% 50%
 
 platforms:
   - id: steam
-    release: 2026-08-20
-    url: null # TODO(link): Steam store page
+    release: 2026-03-06
+    url: https://store.steampowered.com/app/3979870/
+  # TODO(verify): the brief gives 20 Aug 2026 for Steam, PS5 and Xbox, but Steam launched on 6 Mar 2026. Confirm the console date.
   - id: ps5
     release: 2026-08-20
     url: null # TODO(link): PlayStation Store page
@@ -41,11 +46,12 @@ platforms:
     release: null
     url: null
 
-# TODO(verify): confirm Dark Product publishes this game's console versions.
+# TODO(verify): Steam lists Studio Ortica as publisher on PC. Confirm Dark Product publishes the console versions.
 consolePublisher: dark-product
 
 trailer:
-  youtubeId: null # TODO(link): YouTube id of the official trailer
+  # TODO(link): candidate found by search, channel not verified: L1pdPuFavtA (Official PS5 Launch Trailer).
+  youtubeId: null
 
 awards: []
 pressQuotes: []

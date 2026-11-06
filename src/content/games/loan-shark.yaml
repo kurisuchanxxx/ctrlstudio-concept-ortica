@@ -1,52 +1,58 @@
 # Loan Shark. Assets: src/assets/games/loan-shark/ (see ASSETS.md)
+# Copy, duration, languages, price and content notes come from the official
+# Steam page (app 3751730, developer Studio Ortica), read on 6 Nov 2026.
 
 title: Loan Shark
 genre: Fishing horror
 featured: false
 
-# TODO(copy): logline and descriptions are drafts. Replace with the official Steam copy or validate.
-logline: Out on the water, a debt that can never be paid keeps pulling at the line.
+# Official Steam short description.
+logline: The loan shark is coming for you. Catch enough fish to repay your debt before it is too late. Go fish.
+# Official Steam copy ("About this game").
 description:
-  - Loan Shark is a short fishing horror game about an impossible debt. It takes the slow, patient rhythm of fishing, casting, waiting, reeling in, and lets the weight of what you owe seep into every quiet moment on the water.
-  - Like every Studio Ortica game, it is designed to be played in a single sitting. It was the studio's first release, on Steam in August 2025 and on Xbox Series in January 2026, and a finalist for Best Italian Debut Game at the Italian Video Game Awards 2026.
-shortDescription: A short fishing horror game about an impossible debt, designed to be played in a single sitting.
+  - You are an angler haunted by huge debts. In the midst of yet another night working at sea, you catch something different, a fish which talks, and promises to make you rich... but at what cost?
+  - A brief fishing horror game about debt and hopelessness, around 30 minutes long. Enjoy a twisted cautionary tale in one sitting.
+shortDescription: A brief fishing horror game about debt and hopelessness, played in one sitting of around 30 minutes.
 
-# TODO(verify): duration uses the studio's 30-60 minute range. Confirm for this game.
-duration: { min: 30, max: 60 }
-price: null # TODO(data): indicative price
-languages: [] # TODO(data): supported languages
+# Steam: "around 30 minutes".
+duration: { min: 30, max: 30 }
+# Steam Italy price on 6 Nov 2026. Changes with region and sales.
+price: €3.99
+languages: [English, Italian]
 
-# TODO(copy): content warnings are a draft. Validate with the studio.
+# From the content notes on the Steam page.
 contentWarnings:
-  - Psychological horror and sustained tension
-  - Themes of debt and financial pressure
-  - Dark, deep water
+  - Mild depictions of self-harm, integral to the story and not optional
+  - Mild depictions of suicide, avoidable (a secret within the game)
+  - Alcohol consumption
 
-# TODO(verify): palette chosen by theme. Re-derive from the key art once available.
-palette: { base: '#0f1a1c', accent: '#7fb3ad', glow: '#2f5d62' }
-artFocus: 50% 45%
+# Palette taken from the night-sea key art and the capsule.
+palette: { base: '#0a0f22', accent: '#9ccfd8', glow: '#1f3c8c' }
+artFocus: 24% 55%
 
 platforms:
   - id: steam
-    release: 2025-08
-    url: null # TODO(link): Steam store page
+    release: 2025-08-08
+    url: https://store.steampowered.com/app/3751730/
+  # TODO(link): Xbox Store page. A search returns product id 9P6V3JB95XLX on xbox.com: verify and add the official URL.
   - id: xbox-series
     release: 2026-01
-    url: null # TODO(link): Xbox Store page
-  # TODO(verify): PlayStation version announced, release date not known.
+    url: null
+  # TODO(verify): press reports Loan Shark is out on PlayStation. Add the date and the PlayStation Store URL.
   - id: playstation
     release: null
     url: null
-  # TODO(verify): listed on the Nintendo eShop according to one source. Confirm and add the date.
+  # TODO(verify): a YouTube video titled Official Nintendo Switch Launch Trailer suggests it is out on Switch. Confirm and add the date.
   - id: switch
     release: null
     url: null
 
-# TODO(verify): confirm Dark Product publishes this game's console versions.
+# TODO(verify): Steam lists Studio Ortica as publisher on PC. Confirm Dark Product publishes the console versions.
 consolePublisher: dark-product
 
 trailer:
-  youtubeId: null # TODO(link): YouTube id of the official trailer
+  # TODO(link): candidate found by search, channel not verified: Ym66Ol3D9kc (Official Nintendo Switch Launch Trailer).
+  youtubeId: null
 
 awards:
   - result: Finalist
