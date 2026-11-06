@@ -51,8 +51,8 @@ platforms:
 consolePublisher: dark-product
 
 trailer:
-  # TODO(link): candidate found by search, channel not verified: Ym66Ol3D9kc (Official Nintendo Switch Launch Trailer).
-  youtubeId: null
+  # Official Nintendo Switch Launch Trailer, confirmed by Ctrl Studio.
+  youtubeId: Ym66Ol3D9kc
 
 awards:
   - result: Finalist

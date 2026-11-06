@@ -50,8 +50,8 @@ platforms:
 consolePublisher: dark-product
 
 trailer:
-  # TODO(link): candidate found by search, channel not verified: L1pdPuFavtA (Official PS5 Launch Trailer).
-  youtubeId: null
+  # Official PS5 Launch Trailer, confirmed by Ctrl Studio.
+  youtubeId: L1pdPuFavtA
 
 awards: []
 pressQuotes: []
