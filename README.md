@@ -25,7 +25,9 @@ npm run dev
 
 ## Deploy
 
-**Concept preview on GitHub Pages.** `.github/workflows/pages.yml` builds under `/<repo>/` and deploys on every push to `main`. To set it up once, open repository Settings, then Pages, and set Source to GitHub Actions.
+**Concept preview on GitHub Pages:** https://kurisuchanxxx.github.io/ctrlstudio-concept-ortica/
+
+The workflow `.github/workflows/pages.yml` builds under `/<repo>/` and deploys on every push to `main`. To set it up once, open repository Settings, then Pages, and set Source to GitHub Actions.
 
 **Production on Cloudflare Pages:**
 

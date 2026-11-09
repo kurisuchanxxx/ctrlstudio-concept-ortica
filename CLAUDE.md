@@ -46,7 +46,7 @@ public/fonts/               licenze OFL dei font
 - Interruttore: `CONCEPT_MODE` in `src/config/concept.mjs`, acceso di default.
 - Controlla, e solo quello: banner sticky non chiudibile su ogni pagina, `<meta name="robots" content="noindex, nofollow">`, `robots.txt` con `Disallow: /`, `X-Robots-Tag: noindex` nel `_headers` generato, nota concept nel footer.
 - Per spegnerlo dopo il sì: un commit dedicato che cambia solo quella riga in `false`. Il build verifica allora che banner, noindex e Disallow siano spariti.
-- La preview gira su GitHub Pages (scelta di Ctrl Studio al posto di pages.dev). L'indirizzo è `https://<owner>.github.io/<repo>/`: il nome del repo deve dichiarare che è un concept di Ctrl Studio (es. `ctrlstudio-ortica-concept`), mai un nome che sembri il loro.
+- La preview gira su GitHub Pages (scelta di Ctrl Studio al posto di pages.dev). L'indirizzo è `https://<owner>.github.io/<repo>/`, oggi https://kurisuchanxxx.github.io/ctrlstudio-concept-ortica/. Il nome del repo deve dichiarare che è un concept di Ctrl Studio, mai un nome che sembri il loro. Rinominare il repo cambia l'indirizzo e GitHub Pages non fa redirect dal vecchio: aggiorna i link già inviati.
 - Su GitHub Pages `robots.txt` sta sotto `/<repo>/` e i crawler lo ignorano, e `_headers` non viene applicato: lì protegge solo il meta noindex, presente su ogni pagina.
 - Non pubblicare, deployare o creare progetti di hosting senza chiedere prima a Ctrl Studio.
 
