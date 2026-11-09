@@ -12,7 +12,8 @@ export type ChannelId =
   | 'youtube'
   | 'instagram'
   | 'tiktok'
-  | 'discord';
+  | 'discord'
+  | 'linkedin';
 
 /* ---------- Raw shapes: what a content source must provide ---------- */
 
@@ -121,6 +122,8 @@ export interface PressQuote extends RawPressQuote {
 export interface TeamMember {
   name: string;
   role: string | null;
+  /** Personal site or portfolio. */
+  url: string | null;
   verified: boolean;
 }
 

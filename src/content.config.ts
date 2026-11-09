@@ -91,6 +91,7 @@ const channelId = z.enum([
   'instagram',
   'tiktok',
   'discord',
+  'linkedin',
 ]);
 
 const studio = defineCollection({
@@ -108,6 +109,7 @@ const studio = defineCollection({
       z.object({
         name: z.string(),
         role: z.string().nullable().default(null),
+        url: z.url().nullable().default(null),
         verified: z.boolean().default(true),
       }),
     ),

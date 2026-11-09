@@ -47,7 +47,7 @@ const t = useTranslations(Astro.currentLocale);
     <p class="logline">{game.logline}</p>
     <div class="btn-row">
       <StoreButtons game={game} />
-      <TrailerButton game={game} mode="jump" />
+      {game.trailer.youtubeId && <TrailerButton game={game} mode="jump" />}
     </div>
   </div>
 </section>

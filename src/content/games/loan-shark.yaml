@@ -34,20 +34,17 @@ platforms:
   - id: steam
     release: 2025-08-08
     url: https://store.steampowered.com/app/3751730/
-  # TODO(link): Xbox Store page. A search returns product id 9P6V3JB95XLX on xbox.com: verify and add the official URL.
+  # Console pages checked on 9 Nov 2026; Dark Product is listed as publisher on each.
   - id: xbox-series
     release: 2026-01
-    url: null
-  # TODO(verify): press reports Loan Shark is out on PlayStation. Add the date and the PlayStation Store URL.
-  - id: playstation
-    release: null
-    url: null
-  # TODO(verify): a YouTube video titled Official Nintendo Switch Launch Trailer suggests it is out on Switch. Confirm and add the date.
+    url: https://www.xbox.com/en-US/games/store/loan-shark/9P6V3JB95XLX
+  - id: ps5
+    release: 2026-01-19
+    url: https://store.playstation.com/en-us/product/HB1607-PPSA34101_00-0849562224596029
   - id: switch
-    release: null
-    url: null
+    release: 2026-02-26
+    url: https://www.nintendo.com/us/store/products/loan-shark-switch/
 
-# TODO(verify): Steam lists Studio Ortica as publisher on PC. Confirm Dark Product publishes the console versions.
 consolePublisher: dark-product
 
 trailer:

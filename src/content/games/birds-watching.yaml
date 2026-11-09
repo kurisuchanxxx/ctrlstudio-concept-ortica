@@ -34,19 +34,18 @@ platforms:
   - id: steam
     release: 2026-03-06
     url: https://store.steampowered.com/app/3979870/
-  # TODO(verify): the brief gives 20 Aug 2026 for Steam, PS5 and Xbox, but Steam launched on 6 Mar 2026. Confirm the console date.
+  # Console date from Dark Product's press release (20 Aug 2026). Store pages checked on 9 Nov 2026.
   - id: ps5
     release: 2026-08-20
-    url: null # TODO(link): PlayStation Store page
+    url: https://store.playstation.com/concept/10019278
   - id: xbox-series
     release: 2026-08-20
-    url: null # TODO(link): Xbox Store page
-  # TODO(verify): Switch version still to be announced.
+    url: https://www.xbox.com/en-US/games/store/birds-watching/9MT2HKWB3NXZ
+  # Switch version announced as coming later (Dark Product press release), no date yet.
   - id: switch
     release: null
     url: null
 
-# TODO(verify): Steam lists Studio Ortica as publisher on PC. Confirm Dark Product publishes the console versions.
 consolePublisher: dark-product
 
 trailer:

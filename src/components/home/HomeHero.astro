@@ -62,11 +62,19 @@ const t = useTranslations(Astro.currentLocale);
           <p class="hero__logline">{game.logline}</p>
           <div class="btn-row">
             <StoreButtons game={game} steamOnly />
-            <TrailerButton game={game} mode="dialog" />
+            {game.trailer.youtubeId ? (
+              <TrailerButton game={game} mode="dialog" />
+            ) : (
+              <a class="btn btn--ghost" href={game.href}>
+                {t('cta.aboutGame')}
+              </a>
+            )}
           </div>
-          <p class="hero__more">
-            <a href={game.href}>{t('cta.aboutGame')}</a>
-          </p>
+          {game.trailer.youtubeId && (
+            <p class="hero__more">
+              <a href={game.href}>{t('cta.aboutGame')}</a>
+            </p>
+          )}
         </div>
       )
     }

@@ -1,6 +1,7 @@
 # Studio data. Feeds the home page, the footer and the press kit.
-# Facts come from press coverage collected in docs/brief.md. Draft text is
-# flagged in the comments next to it, to be validated by Studio Ortica.
+# Facts come from press coverage collected in docs/brief.md, the official
+# Linktree (linktr.ee/studioortica) and the official Steam pages, read on
+# 9 Nov 2026. Draft text is flagged in the comments next to it.
 
 name: Studio Ortica
 founded: 2025
@@ -18,39 +19,42 @@ manifesto:
   - Each one starts from something slow and patient. Fishing. Watching birds. Digging.
   - Then we wait, and let the quiet turn.
 
-# TODO(copy): press kit descriptions. Drafts, to be validated or replaced.
-shortDescription: Studio Ortica is an independent game studio based in Turin, Italy, making short narrative horror games designed to be played in a single sitting.
+# Short description adapted from the official Linktree bio.
+shortDescription: Studio Ortica is an indie game studio from Turin, Italy, founded in 2025 by former AA developers. It makes short, narrative driven horror games, designed to be played in a single sitting.
+# TODO(copy): long description is a draft built on verified facts. Validate with the studio.
 longDescription:
   - Studio Ortica is an independent game studio based in Turin, Italy, founded in 2025 by developers coming from AA productions. The team works in Godot.
   - Its games share one signature. Each takes a quiet activity built on patient observation, such as fishing, birdwatching or excavation, and slowly turns it into horror. They are short and narrative, meant to be finished in one sitting, from about thirty minutes to a couple of hours.
-  # TODO(verify): confirm Dark Product publishes the console versions of every game.
-  - Its first game, Loan Shark, a fishing horror about an impossible debt, was a finalist for Best Italian Debut Game at the Italian Video Game Awards 2026. Console versions are published by Dark Product, based in Busan, South Korea.
+  - Its first game, Loan Shark, a fishing horror about an impossible debt, was a finalist for Best Italian Debut Game at the Italian Video Game Awards 2026. Console versions of Loan Shark and Birds Watching are published by Dark Product, based in Busan, South Korea.
 
+# Team as listed on the official Linktree. Roles are not public.
 team:
-  # TODO(data): roles are not known. Add them, or leave null to hide the role.
   - name: Nicola Dau
+    url: https://nicolaluigidau.wordpress.com/
   - name: Luca Folino
+    url: https://lucafolino.fun/
   - name: Samuele Petrucci
-  # TODO(verify): only one source lists Tremotino as part of the team.
-  - name: Tremotino
-    verified: false
+    url: https://www.artstation.com/samuelepetrucci
 
+# Official studio email (Linktree and Steam support info).
+# TODO(verify): confirm whether press and business should use a dedicated address.
 contacts:
-  press: null # TODO(data): official press email
-  business: null # TODO(data): official business email
+  press: studioorticadev@gmail.com
+  business: studioorticadev@gmail.com
 
-# TODO(link): official URLs for every channel. Never build them by guessing handles.
+# Official channels from the Linktree. Steam is the studio's developer page on Steam.
 channels:
-  - { id: substack, label: Substack, url: null }
-  - { id: steam, label: Steam, url: null }
-  - { id: x, label: X, url: null }
-  - { id: bluesky, label: Bluesky, url: null }
-  - { id: youtube, label: YouTube, url: null }
-  - { id: instagram, label: Instagram, url: null }
-  - { id: tiktok, label: TikTok, url: null }
-  - { id: discord, label: Discord, url: null }
+  - { id: substack, label: Substack, url: 'https://substack.com/@studioortica' }
+  - { id: steam, label: Steam, url: 'https://store.steampowered.com/curator/45882413/' }
+  - { id: x, label: X, url: 'https://x.com/studioortica' }
+  - { id: bluesky, label: Bluesky, url: 'https://bsky.app/profile/studioortica.bsky.social' }
+  - { id: youtube, label: YouTube, url: 'https://www.youtube.com/@StudioOrtica' }
+  - { id: instagram, label: Instagram, url: 'https://www.instagram.com/studio_ortica/' }
+  - { id: tiktok, label: TikTok, url: 'https://www.tiktok.com/@ortica_studio' }
+  - { id: discord, label: Discord, url: 'https://discord.gg/55buwRqgHn' }
+  - { id: linkedin, label: LinkedIn, url: 'https://www.linkedin.com/company/studio-ortica/' }
 
-# The newsletter CTA points to the Substack channel above.
+# The newsletter CTA points to the Substack channel above (English edition).
 newsletter:
   # TODO(copy): newsletter block copy. Draft.
   title: Follow the work as it happens
@@ -63,7 +67,7 @@ publishers:
     role: Console publisher
     city: Busan
     country: South Korea
-    url: null # TODO(link): Dark Product website
+    url: https://www.darkproduct.com/
 
 # Verified press quotes about the studio. Each needs a real source URL.
 pressQuotes: []

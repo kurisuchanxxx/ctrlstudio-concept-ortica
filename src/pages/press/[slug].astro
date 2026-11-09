@@ -140,7 +140,7 @@ const shots = game.assets.screenshots;
           {
             studio.team.map((m) => (
               <li>
-                {m.name}
+                {m.url ? <a href={m.url}>{m.name}</a> : m.name}
                 {m.role && <span class="muted"> · {m.role}</span>}
               </li>
             ))
