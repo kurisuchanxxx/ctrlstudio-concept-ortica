@@ -3,6 +3,7 @@ import { CONCEPT, CONCEPT_MODE } from '~/config/concept.mjs';
 import ContactValue from '~/components/ContactValue.astro';
 import MaybeLink from '~/components/MaybeLink.astro';
 import { useTranslations } from '~/i18n';
+import { Image } from 'astro:assets';
 import { buildNow, getStudio } from '~/lib/content';
 import { url } from '~/lib/url';
 
@@ -15,6 +16,11 @@ const consolePublisher = studio.publishers.find((p) => p.role.toLowerCase().incl
   <div class="container">
     <div class="grid">
       <div class="brand">
+        {
+          studio.assets.logo && (
+            <Image class="logo" src={studio.assets.logo.src} width={72} height={72} densities={[1, 2]} alt="" />
+          )
+        }
         <a class="wordmark" href={url()}>{studio.name}</a>
         <p class="muted">{studio.location.city}, {studio.location.country}</p>
       </div>
@@ -93,6 +99,12 @@ const consolePublisher = studio.publishers.find((p) => p.role.toLowerCase().incl
     font-size: 2rem;
     line-height: 1;
     text-decoration: none;
+  }
+
+  .logo {
+    width: 72px;
+    height: 72px;
+    margin-bottom: var(--space-4);
   }
 
   .brand p {

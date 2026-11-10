@@ -5,7 +5,7 @@
   (src/lib/content/derive.ts mirrors the values below).
 */
 :root {
-  /* Colour: warm near-black, warm greys, one accent (nettle green, from Ortica). */
+  /* Colour: warm near-black, warm greys, one accent: the green of the Studio Ortica logo. */
   --color-bg: #0e0d0c;
   --color-surface: color-mix(in srgb, var(--color-bg), #fff 3.5%);
   --color-surface-2: color-mix(in srgb, var(--color-bg), #fff 6%);
@@ -14,9 +14,9 @@
   --color-text: #e6e1d8; /* 14.9:1 on bg */
   --color-muted: #a29c92; /* 7.1:1 on bg, 6.3:1 on surface-2 */
   --color-subtle: #8f897f; /* 5.6:1 on bg, 4.9:1 on surface-2 */
-  --color-accent: #a3ad6b; /* 8.1:1 on bg */
-  --color-accent-ink: #0e0d0c; /* text on accent: 8.1:1 */
-  --color-glow: #3b4026; /* decorative only */
+  --color-accent: #94d96a; /* from the logo gradient, 11.5:1 on bg */
+  --color-accent-ink: #0e0d0c; /* text on accent: 11.5:1 */
+  --color-glow: #22401a; /* decorative only */
   --color-scrim: 14 13 12; /* rgb channels of bg, for overlays */
 
   /* Type */

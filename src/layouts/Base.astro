@@ -54,7 +54,8 @@ if (Astro.site && ogImage) {
     {CONCEPT_MODE && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content={palette?.base ?? '#0e0d0c'} />
     <meta name="color-scheme" content="dark" />
-    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={url('favicon-32.png')} type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href={url('apple-touch-icon.png')} />
     <link rel="preload" href={serifRegular} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={plexRegular} as="font" type="font/woff2" crossorigin />
     <meta property="og:type" content="website" />

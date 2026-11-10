@@ -60,7 +60,7 @@ Mancano ancora:
 - [ ] press-kit.zip oppure `pressKitUrl`
 
 ### Studio: `src/assets/studio/`
-- [ ] logo (PNG trasparente)
+- [x] logo: PNG trasparente 921 x 921 dal loro Linktree; usato anche per header, footer e favicon
 - [ ] team (foto del team, 3:2)
 - [ ] press-kit.zip oppure `pressKitUrl`
 

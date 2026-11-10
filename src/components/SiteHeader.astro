@@ -1,8 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import { useTranslations } from '~/i18n';
+import { getStudio } from '~/lib/content';
 import { stripBase, url } from '~/lib/url';
 
 const t = useTranslations(Astro.currentLocale);
+const logo = (await getStudio()).assets.logo;
 const path = stripBase(Astro.url.pathname);
 const links = [
   { href: url('#games'), label: t('nav.games'), current: path.startsWith('/games/') },
@@ -13,7 +16,22 @@ const links = [
 
 <header class="site-header">
   <div class="container inner">
-    <a class="wordmark" href={url()} aria-label={t('a11y.home')}>{t('site.name')}</a>
+    <a class="wordmark" href={url()} aria-label={t('a11y.home')}>
+      {
+        logo && (
+          <Image
+            class="wordmark__logo"
+            src={logo.src}
+            width={44}
+            height={44}
+            densities={[1, 2]}
+            alt=""
+            loading="eager"
+          />
+        )
+      }
+      <span class:list={['wordmark__text', { 'wordmark__text--with-logo': logo }]}>{t('site.name')}</span>
+    </a>
     <nav aria-label={t('a11y.mainNav')}>
       <ul role="list">
         {
@@ -41,17 +59,37 @@ const links = [
 
   .inner {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
   }
 
   .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
     font-family: var(--font-display);
     font-size: 1.5rem;
     line-height: 1;
     text-decoration: none;
     white-space: nowrap;
+  }
+
+  .wordmark__logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* On narrow screens the logo alone carries the brand. */
+  @media (max-width: 30rem) {
+    .wordmark__text--with-logo {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
   }
 
   ul {

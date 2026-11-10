@@ -102,7 +102,7 @@ Note sui campi:
 
 ## Design
 
-- Token in `src/styles/tokens.css`. Base quasi nera calda, grigi caldi, un solo accento: verde ortica `#a3ad6b`.
+- Token in `src/styles/tokens.css`. Base quasi nera calda, grigi caldi, un solo accento: il verde del logo di Studio Ortica, `#94d96a`. Il logo ufficiale (PNG trasparente dal loro Linktree) è in `src/assets/studio/logo.png` e alimenta header, footer, favicon e press kit.
 - Font: Instrument Serif per i titoli e IBM Plex Sans per l'interfaccia, entrambi OFL e self-hosted. Massimo due famiglie.
 - Link interni sempre con `url()` da `~/lib/url`, mai `/percorso` scritto a mano: il sito deve funzionare anche sotto una sottocartella.
 - Grana: SVG inline su `body::after` in `global.css`, mossa solo con `transform`; ferma con prefers-reduced-motion.
