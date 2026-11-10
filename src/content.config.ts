@@ -118,7 +118,15 @@ const studio = defineCollection({
       business: z.email().nullable().default(null),
     }),
     channels: z.array(z.object({ id: channelId, label: z.string(), url: z.url().nullable().default(null) })),
-    newsletter: z.object({ title: z.string(), text: z.string(), cta: z.string() }),
+    newsletter: z.object({
+      title: z.string(),
+      text: z.string(),
+      cta: z.string(),
+      // Optional second edition, e.g. the Italian one.
+      alt: z.object({ label: z.string(), url: z.url() }).nullable().default(null),
+    }),
+    // Game in development, shown as a short line in the home hero.
+    nowMaking: z.object({ title: z.string(), note: z.string().nullable().default(null) }).nullable().default(null),
     publishers: z.array(
       z.object({
         id: z.string(),

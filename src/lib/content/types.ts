@@ -65,7 +65,8 @@ export interface RawStudio {
   team: TeamMember[];
   contacts: { press: string | null; business: string | null };
   channels: Channel[];
-  newsletter: { title: string; text: string; cta: string };
+  newsletter: { title: string; text: string; cta: string; alt: { label: string; url: string } | null };
+  nowMaking: { title: string; note: string | null } | null;
   publishers: Publisher[];
   pressQuotes: RawPressQuote[];
   pressKitUrl: string | null;
@@ -217,7 +218,14 @@ export interface Studio {
   team: TeamMember[];
   contacts: { press: string | null; business: string | null };
   channels: Channel[];
-  newsletter: { title: string; text: string; cta: string; url: string | null };
+  newsletter: {
+    title: string;
+    text: string;
+    cta: string;
+    url: string | null;
+    alt: { label: string; url: string } | null;
+  };
+  nowMaking: { title: string; note: string | null } | null;
   publishers: Publisher[];
   pressQuotes: PressQuote[];
   pressKitUrl: string | null;

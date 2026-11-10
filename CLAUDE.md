@@ -68,6 +68,7 @@ Se aggiungi una regola al brief, aggiungila anche allo script.
 
 - **Dato mancante** (prezzo, lingue, link, email, citazioni, foto, zip): lascia `null` o `[]` nel contenuto. I componenti mostrano da soli un placeholder pulito (Pending, Link pending, slot immagine con proporzioni).
 - **Testo da scrivere** (logline, descrizioni, manifesto, content warning): bozza in inglese che usa solo i fatti del brief, con un `TODO(copy)` accanto.
+- **Voce:** ogni testo editoriale segue il tono di Studio Ortica descritto in [docs/tone-of-voice.md](docs/tone-of-voice.md): diretto, autoironico, giochi di parole a tema, frasi corte. Le descrizioni dei giochi restano il testo ufficiale di Steam.
 - **Fatto incerto:** usalo con un `TODO(verify)`.
 - **Citazioni stampa:** solo frasi verificate, con URL della fonte (`pressQuotes`). Gli slot vuoti restano vuoti.
 - **Formato dei TODO:** `TODO(categoria): nota`, con categoria verify, copy, data, link o asset. Vanno nei commenti YAML, nei commenti JSX `{/* */}` di Astro o nei commenti TS, mai in commenti HTML. Si raccolgono con `npm run todos`.

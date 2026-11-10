@@ -29,6 +29,7 @@ export function getStudio(): Promise<Studio> {
     return {
       ...raw,
       pressQuotes,
+      nowMaking: raw.nowMaking,
       newsletter: {
         ...raw.newsletter,
         url: raw.channels.find((c) => c.id === 'substack')?.url ?? null,

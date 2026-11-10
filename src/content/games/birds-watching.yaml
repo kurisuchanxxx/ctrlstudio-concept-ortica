@@ -53,5 +53,10 @@ trailer:
   youtubeId: L1pdPuFavtA
 
 awards: []
-pressQuotes: []
+# Verified quote: This Week in Videogames, The Gamification of Birdwatching is Here.
+pressQuotes:
+  - quote: '[It] puts an eerie and tense spin on a typically wholesome and relaxing pastime.'
+    outlet: This Week in Videogames
+    author: Jamie Hore
+    url: https://thisweekinvideogames.com/feature/the-gamification-of-birdwatching-is-here/
 pressKitUrl: null # TODO(data): press kit zip for this game

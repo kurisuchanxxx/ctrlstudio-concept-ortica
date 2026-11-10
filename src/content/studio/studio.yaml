@@ -1,7 +1,8 @@
 # Studio data. Feeds the home page, the footer and the press kit.
 # Facts come from press coverage collected in docs/brief.md, the official
 # Linktree (linktr.ee/studioortica) and the official Steam pages, read on
-# 9 Nov 2026. Draft text is flagged in the comments next to it.
+# 9 Nov 2026. Copy follows the studio's own voice: see docs/tone-of-voice.md.
+# Draft text is flagged in the comments next to it.
 
 name: Studio Ortica
 founded: 2025
@@ -10,14 +11,15 @@ location:
   country: Italy
 engine: Godot
 
-# TODO(copy): one-line formula under the studio name in the home hero. Draft.
-formula: Short, narrative horror games you finish in one sitting. Each one takes a quiet, patient pastime and turns it against you.
+# TODO(copy): one-line formula under the studio name in the home hero.
+# Draft in the studio's voice; the first sentence is their own Linktree bio.
+formula: We make short, narrative driven horror games. You fish, you watch birds, you dig. Then something stings.
 
-# TODO(copy): manifesto, 2-3 lines. Draft built only on the studio's stated signature.
+# TODO(copy): the three lines of the What we make block. Draft in the studio's voice.
 manifesto:
-  - We make short, narrative horror games, meant to be played in a single sitting.
-  - Each one starts from something slow and patient. Fishing. Watching birds. Digging.
-  - Then we wait, and let the quiet turn.
+  - Short, narrative driven horror games you can finish in one evening.
+  - Each one starts with something calm. Fishing at night. Watching birds. Digging in the sand with Grandpa.
+  - Then something bites back.
 
 # Short description adapted from the official Linktree bio.
 shortDescription: Studio Ortica is an indie game studio from Turin, Italy, founded in 2025 by former AA developers. It makes short, narrative driven horror games, designed to be played in a single sitting.
@@ -44,7 +46,7 @@ contacts:
 
 # Official channels from the Linktree. Steam is the studio's developer page on Steam.
 channels:
-  - { id: substack, label: Substack, url: 'https://substack.com/@studioortica' }
+  - { id: substack, label: Substack, url: 'https://studioortica.substack.com/' }
   - { id: steam, label: Steam, url: 'https://store.steampowered.com/curator/45882413/' }
   - { id: x, label: X, url: 'https://x.com/studioortica' }
   - { id: bluesky, label: Bluesky, url: 'https://bsky.app/profile/studioortica.bsky.social' }
@@ -54,12 +56,21 @@ channels:
   - { id: discord, label: Discord, url: 'https://discord.gg/55buwRqgHn' }
   - { id: linkedin, label: LinkedIn, url: 'https://www.linkedin.com/company/studio-ortica/' }
 
-# The newsletter CTA points to the Substack channel above (English edition).
+# The newsletter CTA points to the Substack channel above: Studio Ortica's Sting,
+# the English edition. The Italian edition is La puntura di Studio Ortica.
 newsletter:
-  # TODO(copy): newsletter block copy. Draft.
-  title: Follow the work as it happens
-  text: Studio Ortica writes about development on Substack. Notes from the studio, new projects and release news, in your inbox.
-  cta: Read the dev log on Substack
+  # TODO(copy): newsletter block copy. Draft in the studio's voice.
+  title: Get stung
+  text: Studio Ortica's Sting is our dev log on Substack. How the games get made, what we got wrong, the numbers behind them, and the occasional talking fish.
+  cta: Subscribe to the Sting
+  alt:
+    label: In italiano, La puntura
+    url: https://studioorticaita.substack.com/
+
+# Fourth game, announced on the studio's Bluesky on 18 Sep 2026.
+nowMaking:
+  title: FURGONE
+  note: working title
 
 publishers:
   - id: dark-product

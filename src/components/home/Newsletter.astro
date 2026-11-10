@@ -9,7 +9,7 @@ interface Props {
 
 const { studio } = Astro.props;
 const t = useTranslations(Astro.currentLocale);
-const { title, text, cta, url } = studio.newsletter;
+const { title, text, cta, url, alt } = studio.newsletter;
 ---
 
 <section class="section newsletter" aria-labelledby="newsletter-title">
@@ -30,6 +30,13 @@ const { title, text, cta, url } = studio.newsletter;
               {cta}
               <span class="btn__note">{t('pending.link')}</span>
             </span>
+          )
+        }
+        {
+          alt && (
+            <a class="btn btn--ghost" href={alt.url} lang="it">
+              {alt.label}
+            </a>
           )
         }
       </div>

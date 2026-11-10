@@ -54,13 +54,14 @@ export const ui = {
     'slot.teamPhoto': 'Team photo',
 
     'home.hero.studioLine': 'Independent studio · {city} · Since {year}',
-    'home.manifesto': 'Manifesto',
+    'home.hero.now': 'Now working on',
+    'home.manifesto': 'What we make',
     'home.games': 'Games',
     'home.recognition': 'Recognition & press',
     'home.awards': 'Awards',
     'home.press': 'Press',
     'home.contact': 'Contact',
-    'home.contact.text': 'For press and business enquiries, write to the studio directly.',
+    'home.contact.text': 'Press, publishers, festivals, or you just want to say hi? Our inbox is open.',
 
     'facts.title': 'At a glance',
     'facts.duration': 'Duration',
@@ -106,8 +107,7 @@ export const ui = {
     'game.more': 'More from Studio Ortica',
 
     'press.title': 'Press kit',
-    'press.intro':
-      'Everything you need to write about Studio Ortica and its games. For anything missing, write to the press contact.',
+    'press.intro': 'Everything you need to write about us and our games. Missing something? Just ask.',
     'press.factsheet': 'Fact sheet',
     'press.description': 'Description',
     'press.history': 'History',
@@ -134,9 +134,9 @@ export const ui = {
     'footer.pressKit': 'Press kit',
     'footer.rights': '© {year} Studio Ortica',
 
-    'notFound.title': 'Nothing here',
-    'notFound.text': 'This page does not exist, or it has gone quiet.',
-    'notFound.back': 'Back to the home page',
+    'notFound.title': "Nothing's biting",
+    'notFound.text': 'This page does not exist. Maybe something dragged it under.',
+    'notFound.back': 'Back to the surface',
   },
 } as const;
 

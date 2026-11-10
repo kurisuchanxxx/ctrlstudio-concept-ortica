@@ -85,6 +85,15 @@ const t = useTranslations(Astro.currentLocale);
       <p class="label">
         {t('home.hero.studioLine', { city: studio.location.city, year: studio.founded })}
       </p>
+      {
+        studio.nowMaking && (
+          <p class="hero__now">
+            <span class="label">{t('home.hero.now')}</span>{' '}
+            <span class="hero__now-title">{studio.nowMaking.title}</span>
+            {studio.nowMaking.note && <span class="hero__now-note"> ({studio.nowMaking.note})</span>}
+          </p>
+        )
+      }
     </div>
   </div>
 </section>
@@ -199,6 +208,27 @@ const t = useTranslations(Astro.currentLocale);
 
   .hero__formula {
     color: var(--color-text);
+  }
+
+  .hero__now {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4em;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .hero__now-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    color: var(--color-accent);
+    letter-spacing: 0.02em;
+  }
+
+  .hero__now-note {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
   }
 
   @media (min-width: 64rem) {
